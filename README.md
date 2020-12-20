@@ -1,1 +1,2 @@
 # esBuild
+```npm run dev```
