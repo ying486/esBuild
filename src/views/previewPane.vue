@@ -29,5 +29,6 @@ export default {
 .preview-pane {
   width: calc(100% - 500px);
   height: 100%;
+  padding: 10px;
 }
 </style>

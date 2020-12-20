@@ -1,13 +1,14 @@
 <template>
   <div class="home">
     <div class="top">
-      <div class="title">esBuild 1.0</div>
-      <i-button class="code-btn" type="primary" size="small" icon="md-code">
+      <Icon class="icon" size="26" type="ios-outlet-outline" />
+      <div class="title">EsBuild 1.0</div>
+      <Button class="code-btn" type="primary" size="small" icon="md-code">
         开发
-      </i-button>
-      <i-button class="code-btn" type="primary" size="small" icon="ios-trash">
+      </Button>
+      <Button class="code-btn" type="primary" size="small" icon="ios-trash">
         清空
-      </i-button>
+      </Button>
     </div>
     <div class="pane">
       <components-pane></components-pane>
@@ -41,10 +42,13 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 0 10px;
+    .icon {
+      color: #fff;
+    }
     .title {
       color: #fff;
-      line-height: 36px;
-      margin: 0 30px 0 10px;
+      margin: 0 74px 0 10px;
     }
     .code-btn {
       margin-left: 10px;

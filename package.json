@@ -51,7 +51,13 @@
       "comma-dangle": "off",
       "indent": "off",
       "eol-last": "off",
-      "space-before-function-paren": "off"
+      "space-before-function-paren": "off",
+      "vue/no-parsing-error": [
+        2,
+        {
+          "x-invalid-end-tag": false
+        }
+      ]
     }
   },
   "browserslist": [

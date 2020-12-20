@@ -1,7 +1,7 @@
 <template>
   <div class="components-pane">
-    <Menu active-name="1-2" :open-names="['2']" width="100%">
-      <Submenu name="1">
+    <Menu :open-names="['form']" width="100%">
+      <Submenu name="layout">
         <template slot="title">
           <Icon type="ios-analytics" />
           布局设置
@@ -9,7 +9,7 @@
         <MenuItem name="1-1">Row</MenuItem>
         <MenuItem name="1-2">Column</MenuItem>
       </Submenu>
-      <Submenu name="2">
+      <Submenu name="form">
         <template slot="title">
           <Icon type="ios-filing" />
           表单组件
