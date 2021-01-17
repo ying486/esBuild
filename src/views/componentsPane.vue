@@ -14,9 +14,13 @@
           <Icon type="ios-filing" />
           表单组件
         </template>
-        <draggable v-model="menuList" :options="dragOpts">
+        <draggable v-model="menuList" :options="dragOpts" :sort="false">
           <transition-group>
-            <MenuItem v-for="item in menuList" :name="item.id" :key="item.id">
+            <MenuItem
+              v-for="item in menuList"
+              :name="item.type"
+              :key="item.type"
+            >
               {{ item.name }}
             </MenuItem>
           </transition-group>
@@ -32,11 +36,19 @@ export default {
   data() {
     return {
       menuList: [
-        { id: "2-1", name: "Input 输入框" },
-        { id: "2-2", name: "Radio 单选框" },
+        {
+          type: "Input",
+          name: "Input 输入框",
+          options: { width: 100, defaultValue: "", placeholder: "" },
+        },
+        {
+          type: "Radio",
+          name: "Radio 单选框",
+          options: { width: 100, defaultValue: "" },
+        },
       ],
       dragOpts: {
-        group: { name: "site", pull: "clone" },
+        group: { name: "site", pull: "clone", put: false },
         sort: true,
       },
     };
@@ -53,6 +65,10 @@ export default {
 
   .ivu-menu {
     background-color: #eeeeee;
+  }
+  .fallback {
+    background-color: red;
+    border: 1px solid #000;
   }
 }
 </style>

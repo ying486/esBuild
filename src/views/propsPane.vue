@@ -1,32 +1,19 @@
 <template>
   <div class="props-pane">
-    <Form :model="form" label-position="right" :label-width="60">
+    <Form :model="options" label-position="right">
       <div class="block">
         <h3 class="title">Properties</h3>
-        <Row>
-          <Col span="12">
-            <FormItem label="W:" :label-width="30">
-              <InputNumber v-model="form.width" :min="0" />
-            </FormItem>
-          </Col>
-          <Col span="12">
-            <FormItem label="H:" :label-width="30">
-              <InputNumber v-model="form.height" :min="0" />
-            </FormItem>
-          </Col>
-        </Row>
-        <FormItem label="A:" :label-width="30">
-          <InputNumber v-model="form.fontSize" :min="0" />
-        </FormItem>
-      </div>
-      <div class="block">
-        <h3 class="title">Style</h3>
-        <FormItem label="Color:">
-          <Input v-model="form.color" />
-        </FormItem>
-        <FormItem label="Border:">
-          <InputNumber v-model="form.border" :min="0" />
-        </FormItem>
+        <div v-for="(item, index) in Object.keys(options)" :key="index">
+          <FormItem v-if="typeof options[item] === 'string'" :label="item">
+            <Input v-model="options[item]" />
+          </FormItem>
+          <FormItem v-if="typeof options[item] === 'boolean'" :label="item">
+            <Checkbox v-model="options[item]" />
+          </FormItem>
+          <FormItem v-if="typeof options[item] === 'number'" :label="item">
+            <InputNumber v-model="options[item]" :min="0" />
+          </FormItem>
+        </div>
       </div>
     </Form>
   </div>
@@ -36,16 +23,16 @@
 export default {
   name: "propsPane",
   data() {
-    return {
-      form: {
-        width: 0,
-        height: 0,
-        fontSize: 0,
-        color: "",
-        border: 0,
-      },
-    };
+    return {};
   },
+  computed: {
+    options: {
+      get() {
+        return this.$store.state.currentOpts;
+      },
+    },
+  },
+  methods: {},
 };
 </script>
 

@@ -6,7 +6,13 @@
       <Button class="code-btn" type="primary" size="small" icon="md-code">
         开发
       </Button>
-      <Button class="code-btn" type="primary" size="small" icon="ios-trash">
+      <Button
+        class="code-btn"
+        type="primary"
+        size="small"
+        icon="ios-trash"
+        @click="onClear"
+      >
         清空
       </Button>
     </div>
@@ -29,6 +35,17 @@ export default {
     ComponentsPane,
     PreviewPane,
     PropsPane,
+  },
+  methods: {
+    onClear() {
+      this.$Modal.confirm({
+        title: "提示",
+        content: "是否要清空所有组件？",
+        onOk: () => {
+          this.$store.commit("clearAll");
+        },
+      });
+    },
   },
 };
 </script>
