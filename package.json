@@ -52,6 +52,7 @@
       "indent": "off",
       "eol-last": "off",
       "space-before-function-paren": "off",
+      "prefer-const": "off",
       "vue/no-parsing-error": [
         2,
         {

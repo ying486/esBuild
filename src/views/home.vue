@@ -54,7 +54,7 @@ export default {
   height: 100vh;
   .top {
     width: 100%;
-    height: 36px;
+    height: 34px;
     background-color: #252526;
     display: flex;
     flex-direction: row;

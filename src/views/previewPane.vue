@@ -1,29 +1,50 @@
 <template>
   <div class="preview-pane">
-    预览面板
-    <draggable v-model="componentList" group="site">
-      <transition-group>
-        <div v-for="(item, index) in componentList" :key="item.key">
-          <component
-            class="item"
-            :is="item.type"
-            v-bind="item.options"
-            @click.native="onClick(index)"
-          >
-          </component>
-        </div>
-      </transition-group>
+    <h4>Column</h4>
+    <draggable v-model="componentList" group="layout" :style="containerStyle">
+      <div v-for="(box, boxIndex) in componentList" :key="boxIndex">
+        <draggable
+          v-model="box.children"
+          group="site"
+          animation="500"
+          :class="box.name === 'Row' ? 'rowClass' : 'columnClass'"
+          :style="boxStyle"
+        >
+          <g-form-item
+            v-for="(item, index) in box.children"
+            :key="item.key"
+            :obj="item"
+            :boxIndex="boxIndex"
+            :index="index"
+          ></g-form-item>
+        </draggable>
+      </div>
     </draggable>
   </div>
 </template>
 
 <script>
 import { getNewObjFromList } from "../utils/tools";
+import GFormItem from "../components/gFormItem";
 
 export default {
   name: "previewPane",
+  components: { GFormItem },
   data() {
-    return {};
+    return {
+      containerStyle: {
+        width: "100%",
+        height: "97%",
+        border: "2px solid #e0e0e0",
+        "border-radius": "5px",
+      },
+      boxStyle: {
+        width: "100%",
+        "min-height": "100px",
+        border: "2px solid #e0e0e0",
+        "border-radius": "5px",
+      },
+    };
   },
   computed: {
     componentList: {
@@ -31,16 +52,16 @@ export default {
         return this.$store.state.componentList;
       },
       set(value) {
-        const index = getNewObjFromList(this.componentList, value);
-        this.$store.commit("add", { index, value });
+        if (this.componentList.length !== value.length) {
+          const index = getNewObjFromList(this.componentList, value);
+          this.$store.commit("addBox", { index, value });
+        } else {
+          this.$store.commit("move", value);
+        }
       },
     },
   },
-  methods: {
-    onClick(index) {
-      this.$store.commit("select", index);
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -49,8 +70,13 @@ export default {
   width: calc(100% - 500px);
   height: 100%;
   padding: 10px;
-  .item {
-    margin: 5px 0;
+  .rowClass {
+    display: flex;
+    flex-direction: row;
+  }
+  .columnClass {
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>

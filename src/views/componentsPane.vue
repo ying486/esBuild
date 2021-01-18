@@ -1,23 +1,34 @@
 <template>
   <div class="components-pane">
-    <Menu :open-names="['form']" width="100%">
+    <Menu :open-names="['layout', 'form']" width="100%">
       <Submenu name="layout">
         <template slot="title">
           <Icon type="ios-analytics" />
           布局设置
         </template>
-        <MenuItem name="1-1">Row</MenuItem>
-        <MenuItem name="1-2">Column</MenuItem>
+        <draggable
+          v-model="layoutList"
+          :options="dragContainerOpts"
+          :sort="false"
+        >
+          <MenuItem
+            v-for="item in layoutList"
+            :name="item.name"
+            :key="item.name"
+          >
+            {{ item.name }}
+          </MenuItem>
+        </draggable>
       </Submenu>
       <Submenu name="form">
         <template slot="title">
           <Icon type="ios-filing" />
           表单组件
         </template>
-        <draggable v-model="menuList" :options="dragOpts" :sort="false">
+        <draggable v-model="formList" :options="dragOpts" :sort="false">
           <transition-group>
             <MenuItem
-              v-for="item in menuList"
+              v-for="item in formList"
               :name="item.type"
               :key="item.type"
             >
@@ -35,18 +46,51 @@ export default {
   name: "componentsPane",
   data() {
     return {
-      menuList: [
+      layoutList: [
+        {
+          name: "Row",
+        },
+        {
+          name: "Colume",
+        },
+      ],
+      formList: [
         {
           type: "Input",
           name: "Input 输入框",
-          options: { width: 100, defaultValue: "", placeholder: "" },
+          options: {
+            label: "输入名",
+            placeholder: "",
+            disabled: false,
+            readonly: false,
+            maxlength: 10,
+          },
+          styles: [
+            {
+              name: "text-align",
+              value: "right",
+            },
+          ],
         },
         {
           type: "Radio",
           name: "Radio 单选框",
-          options: { width: 100, defaultValue: "" },
+          options: {
+            label: "单选名",
+            readonly: false,
+          },
+          styles: [
+            {
+              name: "text-align",
+              value: "right",
+            },
+          ],
         },
       ],
+      dragContainerOpts: {
+        group: { name: "layout", pull: "clone", put: false },
+        sort: true,
+      },
       dragOpts: {
         group: { name: "site", pull: "clone", put: false },
         sort: true,
