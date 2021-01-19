@@ -3,9 +3,7 @@
     <div class="top">
       <Icon class="icon" size="26" type="ios-outlet-outline" />
       <div class="title">EsBuild 1.0</div>
-      <Button class="code-btn" type="primary" size="small" icon="md-code">
-        开发
-      </Button>
+
       <Button
         class="code-btn"
         type="primary"
@@ -14,6 +12,12 @@
         @click="onClear"
       >
         清空
+      </Button>
+      <Button class="code-btn" type="primary" size="small" icon="md-code">
+        预览
+      </Button>
+      <Button class="code-btn" type="primary" size="small" icon="md-arrow-down">
+        下载
       </Button>
     </div>
     <div class="pane">

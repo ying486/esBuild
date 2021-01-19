@@ -51,6 +51,10 @@ export default new Vuex.Store({
       state.currentOpts = state.componentList[data.boxIndex].children[data.index].options
       state.currentStyles = state.componentList[data.boxIndex].children[data.index].styles
     },
+    // 删除盒子index
+    delBox(state, index) {
+      state.componentList.splice(index, 1)
+    },
     // 删除组件
     del(state, data) {
       state.componentList[data.boxIndex].children.splice(data.index, 1)
