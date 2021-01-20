@@ -1,5 +1,6 @@
 <template>
   <div class="preview-pane">
+    <!-- <div>{{ componentList }}</div> -->
     <div class="tag">Column</div>
     <draggable
       v-model="componentList"
@@ -18,6 +19,7 @@
           animation="500"
           :class="box.name === 'Row' ? 'rowClass' : 'columnClass'"
           :style="boxStyle"
+          @add="onAdd(boxIndex, $event)"
         >
           <g-form-item
             v-for="(item, index) in box.children"
@@ -48,10 +50,10 @@ export default {
         "border-radius": "0 5px 5px 5px",
         display: "flex",
         "flex-direction": "column",
-        "align-items": "center",
+        padding: "0 5px",
       },
       boxStyle: {
-        width: "666px",
+        width: "100%",
         "min-height": "100px",
         border: "2px solid #e0e0e0",
         "border-radius": "0 0 5px 5px",
@@ -74,6 +76,9 @@ export default {
     },
   },
   methods: {
+    onAdd(boxIndex, event) {
+      this.$store.commit("add", { boxIndex, index: event.newIndex });
+    },
     onDelBox(boxIndex) {
       this.$store.commit("delBox", boxIndex);
     },

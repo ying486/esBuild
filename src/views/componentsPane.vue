@@ -25,10 +25,10 @@
           <Icon type="ios-filing" />
           表单组件
         </template>
-        <draggable v-model="formList" :options="dragOpts" :sort="false">
+        <draggable v-model="configList" :options="dragOpts" :sort="false">
           <transition-group>
             <MenuItem
-              v-for="item in formList"
+              v-for="item in configList"
               :name="item.type"
               :key="item.type"
             >
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import { configList } from "./config";
+
 export default {
   name: "componentsPane",
   data() {
@@ -54,39 +56,7 @@ export default {
           name: "Colume",
         },
       ],
-      formList: [
-        {
-          type: "Input",
-          name: "Input 输入框",
-          options: {
-            label: "输入名",
-            placeholder: "",
-            disabled: false,
-            readonly: false,
-            maxlength: 10,
-          },
-          styles: [
-            {
-              name: "text-align",
-              value: "right",
-            },
-          ],
-        },
-        {
-          type: "Radio",
-          name: "Radio 单选框",
-          options: {
-            label: "单选名",
-            readonly: false,
-          },
-          styles: [
-            {
-              name: "text-align",
-              value: "right",
-            },
-          ],
-        },
-      ],
+      configList,
       dragContainerOpts: {
         group: { name: "layout", pull: "clone", put: false },
         sort: true,

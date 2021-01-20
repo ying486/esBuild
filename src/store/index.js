@@ -40,7 +40,16 @@ export default new Vuex.Store({
         key,
         children: []
       })
-      console.log(state.componentList, "addBox");
+    },
+    // 添加组件
+    add(state, data) {
+      const index = data.index;
+      const boxIndex = data.boxIndex;
+      const key = (new Date()).getTime()
+      Vue.set(state.componentList[boxIndex].children, index, {
+        ...JSON.parse(JSON.stringify(state.componentList[boxIndex].children[index])), // 解决数据存储地址相同问题
+        key
+      })
     },
     // 移动
     move(state, list) {

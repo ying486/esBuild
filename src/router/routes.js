@@ -7,7 +7,7 @@ export const routeMap = [
             {
                 path: 'Input',
                 name: 'Input',
-                component: () => import('../views/models/defaultProps'),
+                component: () => import('../views/models/inputProps'),
             },
             {
                 path: 'Radio',
