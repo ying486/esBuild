@@ -68,3 +68,14 @@ export const checkTools = {
     return this._typeOf(obj) === 'object'
   }
 };
+
+export const compareDifferent = (initVal, newVal) => {
+  let obj = []
+  obj.push(`v-model="${newVal.options['v-model']}"`)
+  for (let item of Object.keys(initVal.options)) {
+    if (initVal.options[item] !== newVal.options[item]) {
+      obj.push(`${item}="${newVal.options[item]}"`)
+    }
+  }
+  return obj
+}

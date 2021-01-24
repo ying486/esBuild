@@ -27,6 +27,7 @@
             :obj="item"
             :boxIndex="boxIndex"
             :index="index"
+            :show="true"
           ></g-form-item>
         </draggable>
       </div>

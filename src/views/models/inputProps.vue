@@ -208,7 +208,9 @@ export default {
     "options.maxlength"(val) {
       const isNumber = typeof val === "number";
       this.showWordLimit = !isNumber;
-      this.options["show-word-limit"] = isNumber;
+      this.options["show-word-limit"] = isNumber
+        ? this.options["show-word-limit"]
+        : false;
     },
     "options.type"(val) {
       const isTextarea = val === "textarea";

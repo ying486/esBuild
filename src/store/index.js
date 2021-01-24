@@ -13,7 +13,26 @@ export default new Vuex.Store({
             type: "Input",
             name: "测试",
             options: {
-              label: "默认名", placeholder: "", disabled: false, readonly: false, maxlength: 10
+              label: "Input",
+              'v-model': 'defaultInput',
+              type: 'text', // ['text','password','textarea','url','email','date','number','tel']
+              size: 'default', // ['default','large','small']
+              placeholder: "",
+              maxlength: null,
+              'show-word-limit': false,
+              rows: null,
+              icon: '',
+              prefix: '',
+              suffix: '',
+              clearable: false,
+              disabled: false,
+              readonly: false,
+              password: false,
+              search: false,
+              'enter-button': false,
+              autosize: false,
+              number: false,
+              autofocus: false,
             },
             styles: [
               {

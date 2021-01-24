@@ -5,10 +5,11 @@
       class="content"
       :is="obj.type"
       v-bind="obj.options"
-      @click.native="onClick(boxIndex, index)"
+      @click.native="show && onClick(boxIndex, index)"
     >
     </component>
     <Button
+      v-if="show"
       type="primary"
       size="small"
       icon="md-close"
@@ -35,6 +36,13 @@ export default {
       Number,
       default: 0,
     },
+    show: {
+      Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {};
   },
   computed: {
     changeStyle() {
