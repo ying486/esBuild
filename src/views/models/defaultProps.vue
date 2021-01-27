@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     options() {
-      return this.$store.state.currentOpts;
+      return this.$store.state.currentProps;
     },
     styles() {
       return this.$store.state.currentStyles;

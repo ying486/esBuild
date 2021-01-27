@@ -3,8 +3,8 @@ export const configList = [
   {
     type: "Input",
     name: "Input 输入框",
-    options: {
-      label: "Input",
+    props: {
+      labelName: "Input",
       'v-model': 'defaultInput',
       type: 'text', // ['text','password','textarea','url','email','date','number','tel']
       size: 'default', // ['default','large','small']
@@ -34,11 +34,23 @@ export const configList = [
   },
   // Radio
   {
-    type: "Radio",
+    type: "RadioGroup",
     name: "Radio 单选框",
-    options: {
-      label: "单选名",
-      readonly: false,
+    childTag: "Radio",
+    props: {
+      labelName: "单选名",
+      group: {
+        'v-model': 'defaultRadio',
+        type: "", // "button"
+        size: 'default', // ['default','large','small']
+        vertical: false
+      },
+      member: {
+        label: ["Radio 1"],
+        disabled: false,
+        size: 'default', // ['default','large','small']
+        border: false,
+      },
     },
     styles: [
       {

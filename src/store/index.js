@@ -12,8 +12,8 @@ export default new Vuex.Store({
           {
             type: "Input",
             name: "测试",
-            options: {
-              label: "Input",
+            props: {
+              labelName: "Input",
               'v-model': 'defaultInput',
               type: 'text', // ['text','password','textarea','url','email','date','number','tel']
               size: 'default', // ['default','large','small']
@@ -47,7 +47,7 @@ export default new Vuex.Store({
       },
 
     ],
-    currentOpts: {},
+    currentProps: {},
     currentStyles: []
   },
   mutations: {
@@ -76,7 +76,7 @@ export default new Vuex.Store({
     },
     // 选择单个组件
     select(state, data) {
-      state.currentOpts = state.componentList[data.boxIndex].children[data.index].options
+      state.currentProps = state.componentList[data.boxIndex].children[data.index].props
       state.currentStyles = state.componentList[data.boxIndex].children[data.index].styles
     },
     // 删除盒子index
@@ -90,7 +90,7 @@ export default new Vuex.Store({
     // 清空组件
     clearAll(state) {
       state.componentList.splice(0, state.componentList.length)
-      state.currentOpts = {}
+      state.currentProps = {}
     }
   },
   actions: {

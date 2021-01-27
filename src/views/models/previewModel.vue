@@ -4,6 +4,7 @@
     v-model="showModel"
     title="预览"
     width="60%"
+    footer-hide
     @on-visible-change="onVisiblechange"
   >
     <div

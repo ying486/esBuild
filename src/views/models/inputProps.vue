@@ -1,26 +1,28 @@
 <template>
   <div class="input-props">
-    <Form :model="options" label-position="right" :label-width="70">
+    <Form :model="props" label-position="right" :label-width="70">
       <div class="block">
         <h4 class="title">Properties</h4>
         <FormItem label="label" :label-width="50">
           <Input
-            v-model="options.label"
+            v-model="props.labelName"
             placeholder="请输入标签名"
             size="small"
+            clearable
           ></Input>
         </FormItem>
         <FormItem label="v-model">
           <Input
-            v-model="options['v-model']"
+            v-model="props['v-model']"
             placeholder="请输入绑定的值"
             size="small"
+            clearable
           ></Input>
         </FormItem>
         <Row>
           <Col span="12">
             <FormItem label="type" :label-width="46">
-              <Select v-model="options.type" size="small" style="width: 100px">
+              <Select v-model="props.type" size="small" style="width: 100px">
                 <Option v-for="item in typeList" :value="item" :key="item">{{
                   item
                 }}</Option>
@@ -29,7 +31,7 @@
           </Col>
           <Col span="12">
             <FormItem label="size" :label-width="50">
-              <Select v-model="options.size" size="small" style="width: 100%">
+              <Select v-model="props.size" size="small" style="width: 100%">
                 <Option v-for="item in sizeList" :value="item" :key="item">{{
                   item
                 }}</Option>
@@ -39,16 +41,17 @@
         </Row>
         <FormItem label="placeholder" :label-width="80">
           <Input
-            v-model="options.placeholder"
+            v-model="props.placeholder"
             placeholder="占位文本"
             size="small"
+            clearable
           ></Input>
         </FormItem>
         <Row>
           <Col span="12">
             <FormItem label="maxlength">
               <InputNumber
-                v-model="options.maxlength"
+                v-model="props.maxlength"
                 size="small"
                 style="width: 70px"
                 :min="0"
@@ -58,7 +61,7 @@
           <Col span="12">
             <FormItem label="show-word-limit" :label-width="116">
               <Checkbox
-                v-model="options['show-word-limit']"
+                v-model="props['show-word-limit']"
                 :disabled="showWordLimit"
               />
             </FormItem>
@@ -68,7 +71,7 @@
           <Col span="10">
             <FormItem label="rows" :label-width="40">
               <InputNumber
-                v-model="options.rows"
+                v-model="props.rows"
                 size="small"
                 style="width: 70px"
                 :min="1"
@@ -79,9 +82,10 @@
           <Col span="14">
             <FormItem label="icon" :label-width="40">
               <Input
-                v-model="options.icon"
+                v-model="props.icon"
                 placeholder="图标名称"
                 size="small"
+                clearable
                 :disabled="!rows"
               ></Input>
             </FormItem>
@@ -89,50 +93,52 @@
         </Row>
         <FormItem label="prefix" :label-width="46">
           <Input
-            v-model="options.prefix"
+            v-model="props.prefix"
             placeholder="图标名称"
             size="small"
+            clearable
           ></Input>
         </FormItem>
         <FormItem label="suffix" :label-width="46">
           <Input
-            v-model="options.suffix"
+            v-model="props.suffix"
             placeholder="图标名称"
             size="small"
+            clearable
           ></Input>
         </FormItem>
         <Row>
           <Col span="8">
             <FormItem label="clearable">
-              <Checkbox v-model="options.clearable" />
+              <Checkbox v-model="props.clearable" />
             </FormItem>
           </Col>
           <Col span="8">
             <FormItem label="disabled">
-              <Checkbox v-model="options.disabled" />
+              <Checkbox v-model="props.disabled" />
             </FormItem>
           </Col>
           <Col span="8">
             <FormItem label="readonly">
-              <Checkbox v-model="options.readonly" />
+              <Checkbox v-model="props.readonly" />
             </FormItem>
           </Col>
         </Row>
         <Row>
           <Col span="8">
             <FormItem label="password">
-              <Checkbox v-model="options.password" :disabled="password" />
+              <Checkbox v-model="props.password" :disabled="password" />
             </FormItem>
           </Col>
           <Col span="6">
             <FormItem label="search" :label-width="50">
-              <Checkbox v-model="options.search" />
+              <Checkbox v-model="props.search" />
             </FormItem>
           </Col>
           <Col span="10">
             <FormItem label="enter-button" :label-width="93">
               <Checkbox
-                v-model="options['enter-button']"
+                v-model="props['enter-button']"
                 :disabled="enterButton"
               />
             </FormItem>
@@ -141,17 +147,17 @@
         <Row>
           <Col span="8">
             <FormItem label="autosize">
-              <Checkbox v-model="options.autosize" />
+              <Checkbox v-model="props.autosize" />
             </FormItem>
           </Col>
           <Col span="8">
             <FormItem label="number">
-              <Checkbox v-model="options.number" />
+              <Checkbox v-model="props.number" />
             </FormItem>
           </Col>
           <Col span="8">
             <FormItem label="autofocus">
-              <Checkbox v-model="options.autofocus" />
+              <Checkbox v-model="props.autofocus" />
             </FormItem>
           </Col>
         </Row>
@@ -196,8 +202,8 @@ export default {
     };
   },
   computed: {
-    options() {
-      return this.$store.state.currentOpts;
+    props() {
+      return this.$store.state.currentProps;
     },
     styles() {
       return this.$store.state.currentStyles;
@@ -205,24 +211,24 @@ export default {
   },
   methods: {},
   watch: {
-    "options.maxlength"(val) {
+    "props.maxlength"(val) {
       const isNumber = typeof val === "number";
       this.showWordLimit = !isNumber;
-      this.options["show-word-limit"] = isNumber
-        ? this.options["show-word-limit"]
+      this.props["show-word-limit"] = isNumber
+        ? this.props["show-word-limit"]
         : false;
     },
-    "options.type"(val) {
+    "props.type"(val) {
       const isTextarea = val === "textarea";
       this.password = !(val === "password");
-      this.options.password = false;
+      this.props.password = false;
       this.rows = !isTextarea;
-      this.options.rows = isTextarea ? this.options.rows : null;
-      this.options.icon = isTextarea ? "" : this.options.icon;
+      this.props.rows = isTextarea ? this.props.rows : null;
+      this.props.icon = isTextarea ? "" : this.props.icon;
     },
-    "options.search"(val) {
+    "props.search"(val) {
       this.enterButton = !val;
-      this.options["enter-button"] = false;
+      this.props["enter-button"] = false;
     },
   },
 };
@@ -236,6 +242,7 @@ export default {
     background-color: #eeeeee;
     .title {
       color: #bebebe;
+      margin-bottom: 5px;
     }
   }
 }

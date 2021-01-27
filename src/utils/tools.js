@@ -71,10 +71,19 @@ export const checkTools = {
 
 export const compareDifferent = (initVal, newVal) => {
   let obj = []
-  obj.push(`v-model="${newVal.options['v-model']}"`)
-  for (let item of Object.keys(initVal.options)) {
-    if (initVal.options[item] !== newVal.options[item]) {
-      obj.push(`${item}="${newVal.options[item]}"`)
+  obj.push(`v-model="${newVal.props['v-model']}"`)
+  for (let item of Object.keys(initVal.props)) {
+    // 去除默认属性
+    if (initVal.props[item] !== newVal.props[item]) {
+      let type = typeof newVal.props[item]
+      switch (type) {
+        case 'boolean':
+          obj.push(`:${item}="${newVal.props[item]}"`)
+          break;
+        default:
+          obj.push(`${item}="${newVal.props[item]}"`)
+          break;
+      }
     }
   }
   return obj

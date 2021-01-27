@@ -1,12 +1,16 @@
 <template>
   <div class="g-form-item">
-    <div class="label" :style="changeStyle">{{ obj.options.label }}</div>
+    <div class="label" :style="changeStyle">{{ obj.props.labelName }}</div>
     <component
       class="content"
       :is="obj.type"
-      v-bind="obj.options"
+      v-bind="obj.props"
       @click.native="show && onClick(boxIndex, index)"
     >
+      <component
+        v-if="obj.type === 'RadioGroup'"
+        :is="obj.childTag"
+      ></component>
     </component>
     <Button
       v-if="show"

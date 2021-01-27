@@ -43,6 +43,7 @@
 
 <script>
 import { compareDifferent } from "../utils/tools";
+import { templateCode } from "./config/template";
 import { configList } from "./config";
 import ComponentsPane from "./componentsPane";
 import PreviewPane from "./previewPane";
@@ -87,6 +88,11 @@ export default {
     // 下载
     onDownload() {
       const data = this.handleData(this.componentList);
+      // 代码美化
+      // const beautifyData = beautify(data, {
+      //   indent_size: 2,
+      //   space_in_empty_paren: true,
+      // });
       // 定义文件内容，类型必须为Blob 否则createObjectURL会报错
       let content = new Blob([data]);
 
@@ -115,7 +121,12 @@ export default {
         const sortType = `<div class='${box.name}'>${items}</div>`;
         body = body + sortType;
       }
-      return `<template><div>${body}</div></template>`;
+      // 代码美化
+      const beautifyData = this.jsBeautify.html_beautify(templateCode(body), {
+        indent_size: 2,
+        space_in_empty_paren: true,
+      });
+      return beautifyData;
     },
     // 处理单个标签
     handleItem(obj) {
