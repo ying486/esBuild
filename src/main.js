@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import Router from 'vue-router'
 import store from './store'
 import ViewUI from 'view-design';
 import '../my-theme/index.less';
@@ -17,3 +18,8 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}

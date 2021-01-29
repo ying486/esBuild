@@ -2,18 +2,29 @@
   <div class="g-form-item">
     <div class="label" :style="changeStyle">{{ obj.props.labelName }}</div>
     <component
+      v-if="obj.type === 'Input'"
       class="content"
-      :is="obj.type"
       v-bind="obj.props"
-      @click.native="show && onClick(boxIndex, index)"
+      :is="obj.type"
+      @click.native="showDel && onClick(boxIndex, index)"
+    >
+    </component>
+    <component
+      v-if="obj.type === 'RadioGroup'"
+      v-bind="obj.props.group"
+      :is="obj.type"
+      @click.native="showDel && onClick(boxIndex, index)"
     >
       <component
-        v-if="obj.type === 'RadioGroup'"
+        v-for="(item, index) in obj.props.child"
+        v-bind="item"
+        :key="index"
+        :label="item.label"
         :is="obj.childTag"
       ></component>
     </component>
     <Button
-      v-if="show"
+      v-if="showDel"
       type="primary"
       size="small"
       icon="md-close"
@@ -40,7 +51,7 @@ export default {
       Number,
       default: 0,
     },
-    show: {
+    showDel: {
       Boolean,
       default: false,
     },
@@ -80,6 +91,7 @@ export default {
   margin: 5px;
   .label {
     width: 100px;
+    margin-right: 5px;
     text-align: left;
   }
   .content {

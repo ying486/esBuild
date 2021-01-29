@@ -10,9 +10,9 @@ export const routeMap = [
                 component: () => import('../views/models/inputProps'),
             },
             {
-                path: 'Radio',
-                name: 'Radio',
-                component: () => import('../views/models/defaultProps'),
+                path: 'RadioGroup',
+                name: 'RadioGroup',
+                component: () => import('../views/models/radioGroupProps'),
             }
         ]
     },

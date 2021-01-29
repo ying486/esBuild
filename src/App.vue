@@ -5,8 +5,7 @@
 </template>
 
 <style lang="less">
-html,
-body {
+#app {
   margin: 0;
 }
 </style>

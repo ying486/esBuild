@@ -1,6 +1,7 @@
 <template>
   <div class="input-props">
     <Form :model="props" label-position="right" :label-width="70">
+      <!-- 属性 -->
       <div class="block">
         <h4 class="title">Properties</h4>
         <FormItem label="label" :label-width="50">
@@ -162,6 +163,8 @@
           </Col>
         </Row>
       </div>
+      <!-- 属性 -->
+      <!-- 样式 -->
       <div class="block">
         <h4 class="title">Styles</h4>
         <div v-for="(item, index) in styles" :key="index">
@@ -174,6 +177,7 @@
           </FormItem>
         </div>
       </div>
+      <!-- 样式 -->
     </Form>
   </div>
 </template>

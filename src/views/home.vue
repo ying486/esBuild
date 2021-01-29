@@ -42,8 +42,7 @@
 </template>
 
 <script>
-import { compareDifferent } from "../utils/tools";
-import { templateCode } from "./config/template";
+import { handleData } from "../utils/listToDom";
 import { configList } from "./config";
 import ComponentsPane from "./componentsPane";
 import PreviewPane from "./previewPane";
@@ -87,15 +86,9 @@ export default {
     },
     // 下载
     onDownload() {
-      const data = this.handleData(this.componentList);
-      // 代码美化
-      // const beautifyData = beautify(data, {
-      //   indent_size: 2,
-      //   space_in_empty_paren: true,
-      // });
+      const data = handleData(this.componentList);
       // 定义文件内容，类型必须为Blob 否则createObjectURL会报错
       let content = new Blob([data]);
-
       // 生成url对象
       let urlObject = window.URL || window.webkitURL || window;
       let url = urlObject.createObjectURL(content);
@@ -104,36 +97,9 @@ export default {
       // 链接赋值
       el.href = url;
       el.download = "data.vue";
-      // 必须点击否则不会下载
       el.click();
       // 移除链接释放资源
       urlObject.revokeObjectURL(url);
-    },
-    // 处理数据
-    handleData(list) {
-      let body = "";
-      for (let box of list) {
-        let items = "";
-        for (let item of box.children) {
-          const temp = this.handleItem(item);
-          items = items + temp;
-        }
-        const sortType = `<div class='${box.name}'>${items}</div>`;
-        body = body + sortType;
-      }
-      // 代码美化
-      const beautifyData = this.jsBeautify.html_beautify(templateCode(body), {
-        indent_size: 2,
-        space_in_empty_paren: true,
-      });
-      return beautifyData;
-    },
-    // 处理单个标签
-    handleItem(obj) {
-      const initVal = this.configList.find((item) => item.type === obj.type);
-      const list = compareDifferent(initVal, obj);
-      const data = list.join(" ");
-      return `<${obj.type} ${data}></${obj.type}>`;
     },
   },
 };

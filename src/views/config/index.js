@@ -32,25 +32,27 @@ export const configList = [
       },
     ],
   },
-  // Radio
+  // RadioGroup
   {
     type: "RadioGroup",
-    name: "Radio 单选框",
+    name: "Radio 单选框组",
     childTag: "Radio",
     props: {
       labelName: "单选名",
       group: {
         'v-model': 'defaultRadio',
-        type: "", // "button"
+        type: null, // "button"
         size: 'default', // ['default','large','small']
         vertical: false
       },
-      member: {
-        label: ["Radio 1"],
-        disabled: false,
-        size: 'default', // ['default','large','small']
-        border: false,
-      },
+      child: [
+        {
+          label: "label 1",
+          size: 'default', // ['default','large','small']
+          disabled: false,
+          border: false,
+        },
+      ]
     },
     styles: [
       {

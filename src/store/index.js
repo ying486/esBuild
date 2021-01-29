@@ -42,6 +42,35 @@ export default new Vuex.Store({
             ],
             key: 123
           },
+          {
+            type: "RadioGroup",
+            name: "Radio 单选框组",
+            childTag: "Radio",
+            props: {
+              labelName: "单选名",
+              group: {
+                'v-model': 'defaultRadio',
+                type: null, // "button"
+                size: 'default', // ['default','large','small']
+                vertical: false
+              },
+              child: [
+                {
+                  label: "label 1",
+                  size: 'default', // ['default','large','small']
+                  disabled: false,
+                  border: false,
+                },
+              ]
+            },
+            styles: [
+              {
+                name: "text-align",
+                value: "right",
+              },
+            ],
+            key: 1234
+          },
         ],
         key: 111
       },
@@ -91,6 +120,7 @@ export default new Vuex.Store({
     clearAll(state) {
       state.componentList.splice(0, state.componentList.length)
       state.currentProps = {}
+      state.currentStyles = {}
     }
   },
   actions: {

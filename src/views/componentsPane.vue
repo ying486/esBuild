@@ -8,7 +8,7 @@
         </template>
         <draggable
           v-model="layoutList"
-          :options="dragContainerOpts"
+          v-bind="dragContainerOpts"
           :sort="false"
         >
           <MenuItem
@@ -25,7 +25,7 @@
           <Icon type="ios-filing" />
           表单组件
         </template>
-        <draggable v-model="configList" :options="dragOpts" :sort="false">
+        <draggable v-model="configList" v-bind="dragOpts" :sort="false">
           <transition-group>
             <MenuItem
               v-for="item in configList"
