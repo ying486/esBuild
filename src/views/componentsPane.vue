@@ -53,7 +53,7 @@ export default {
           name: "Row",
         },
         {
-          name: "Colume",
+          name: "Column",
         },
       ],
       configList,

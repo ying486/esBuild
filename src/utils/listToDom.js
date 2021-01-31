@@ -52,19 +52,12 @@ function _handleItemSec(initVal, obj) {
 // 获取与默认值不同的属性
 function _getProps(initVal, newVal) {
   let list = []
-  delete initVal['v-model']
-  for (let item of Object.keys(initVal.props)) {
+  delete initVal.props['v-model']
+
+  for (let key in newVal.props) {
     // 去除值为默认的属性
-    if (initVal.props[item] !== newVal.props[item]) {
-      let type = typeof newVal.props[item]
-      switch (type) {
-        case 'string':
-          list.push(`${item}="${newVal.props[item]}"`)
-          break;
-        default:
-          list.push(`:${item}="${newVal.props[item]}"`)
-          break;
-      }
+    if (initVal.props[key] !== newVal.props[key]) {
+      list.push(_getDomPropStr(key, newVal.props))
     }
   }
   return list
@@ -82,37 +75,31 @@ function _getPropsSec(initVal, newVal) {
   const groupProps = newVal.props.group
   const childProps = newVal.props.child
 
-  for (let item in groupProps) {
+  for (let key in groupProps) {
     // 去除值为默认的属性
-    if (initGroupProps[item] !== groupProps[item]) {
-      let type = typeof groupProps[item]
-      switch (type) {
-        case 'string':
-          group.push(`${item}="${groupProps[item]}"`)
-          break;
-        default:
-          group.push(`:${item}="${groupProps[item]}"`)
-          break;
-      }
+    if (initGroupProps[key] !== groupProps[key]) {
+      group.push(_getDomPropStr(key, groupProps))
     }
   }
-
   for (let item of childProps) {
     for (let key in item) {
       // 去除值为默认的属性
       if (initChildProps[key] !== item[key]) {
-        let type = typeof item[key]
-        switch (type) {
-          case 'string':
-            child.push(`${key}="${item[key]}"`)
-            break;
-          default:
-            child.push(`:${key}="${item[key]}"`)
-            break;
-        }
+        child.push(_getDomPropStr(key, item))
       }
     }
   }
   const obj = { group, child }
   return obj
+}
+
+// 将键值对转化为Dom中的属性
+function _getDomPropStr(propName, obj) {
+  let type = typeof obj[propName]
+  switch (type) {
+    case 'string':
+      return `${propName}="${obj[propName]}"`
+    default:
+      return `:${propName}="${obj[propName]}"`
+  }
 }

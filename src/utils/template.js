@@ -20,6 +20,16 @@ export default {
 };
 </script>
 <style lang="less">
+.home{
+  .rowClass {
+    display: flex;
+    flex-direction: row;
+  }
+  .columnClass {
+    display: flex;
+    flex-direction: column;
+  }
+}
 </style>
 `
 }
