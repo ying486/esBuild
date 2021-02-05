@@ -1,6 +1,6 @@
 <template>
   <div class="input-props">
-    <Form :model="props" label-position="right" :label-width="70">
+    <Form :model="props" label-position="left" :label-width="70">
       <!-- 属性 -->
       <div class="block">
         <h4 class="title">Properties</h4>
@@ -21,7 +21,7 @@
           ></Input>
         </FormItem>
         <Row>
-          <Col span="12">
+          <Col span="14">
             <FormItem label="type" :label-width="46">
               <Select v-model="props.type" size="small" style="width: 100px">
                 <Option v-for="item in typeList" :value="item" :key="item">{{
@@ -30,8 +30,8 @@
               </Select>
             </FormItem>
           </Col>
-          <Col span="12">
-            <FormItem label="size" :label-width="50">
+          <Col span="10">
+            <FormItem label="size" :label-width="36">
               <Select v-model="props.size" size="small" style="width: 100%">
                 <Option v-for="item in sizeList" :value="item" :key="item">{{
                   item
@@ -49,7 +49,7 @@
           ></Input>
         </FormItem>
         <Row>
-          <Col span="12">
+          <Col span="13">
             <FormItem label="maxlength">
               <InputNumber
                 v-model="props.maxlength"
@@ -59,8 +59,8 @@
               />
             </FormItem>
           </Col>
-          <Col span="12">
-            <FormItem label="show-word-limit" :label-width="116">
+          <Col span="11">
+            <FormItem label="show-word-limit" :label-width="110">
               <Checkbox
                 v-model="props['show-word-limit']"
                 :disabled="showWordLimit"
@@ -197,6 +197,7 @@ export default {
         "number",
         "tel",
       ],
+      switch1: false,
       sizeList: ["default", "large", "small"],
       textAlignList: ["left", "center", "right"],
       showWordLimit: false, // maxlength不为null时，字数统计可用

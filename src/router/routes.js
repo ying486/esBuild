@@ -13,7 +13,27 @@ export const routeMap = [
                 path: 'RadioGroup',
                 name: 'RadioGroup',
                 component: () => import('../views/models/radioGroupProps'),
-            }
+            },
+            {
+                path: 'CheckboxGroup',
+                name: 'CheckboxGroup',
+                component: () => import('../views/models/checkboxGroupProps'),
+            },
+            {
+                path: 'i-switch',
+                name: 'i-switch',
+                component: () => import('../views/models/switchProps'),
+            },
+            {
+                path: 'InputNumber',
+                name: 'InputNumber',
+                component: () => import('../views/models/inputNumberProps'),
+            },
+            // {
+            //     path: 'ColorPicker',
+            //     name: 'ColorPicker',
+            //     component: () => import('../views/models/colorPickerProps'),
+            // },
         ]
     },
 ]

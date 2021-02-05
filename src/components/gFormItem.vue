@@ -2,7 +2,7 @@
   <div class="g-form-item">
     <div class="label" :style="changeStyle">{{ obj.props.labelName }}</div>
     <component
-      v-if="obj.type === 'Input'"
+      v-if="defaultType.includes(obj.type)"
       class="content"
       v-bind="obj.props"
       :is="obj.type"
@@ -10,7 +10,7 @@
     >
     </component>
     <component
-      v-if="obj.type === 'RadioGroup'"
+      v-if="interType.includes(obj.type)"
       v-bind="obj.props.group"
       :is="obj.type"
       @click.native="showDel && onClick(boxIndex, index)"
@@ -57,7 +57,10 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      defaultType: ["Input", "i-switch", "InputNumber"],
+      interType: ["RadioGroup", "CheckboxGroup"],
+    };
   },
   computed: {
     changeStyle() {

@@ -1,9 +1,9 @@
 <template>
-  <div class="radio-group-props">
+  <div class="checkbox-group-props">
     <Form
       v-if="Object.keys(props).length && props.group"
       :model="props"
-      label-position="left"
+      label-position="right"
       :label-width="70"
     >
       <!-- 主属性 -->
@@ -25,35 +25,13 @@
             clearable
           ></Input>
         </FormItem>
-        <Row>
-          <Col span="11">
-            <FormItem label="size" :label-width="40">
-              <Select
-                v-model="props.group.size"
-                size="small"
-                style="width: 90%"
-              >
-                <Option v-for="item in sizeList" :value="item" :key="item">{{
-                  item
-                }}</Option>
-              </Select>
-            </FormItem>
-          </Col>
-          <Col span="6">
-            <FormItem label="type" :label-width="40">
-              <Checkbox
-                v-model="props.group.type"
-                true-value="button"
-                :false-value="null"
-              />
-            </FormItem>
-          </Col>
-          <Col span="6">
-            <FormItem label="vertical" :label-width="60">
-              <Checkbox v-model="props.group.vertical" :disabled="typeFlag" />
-            </FormItem>
-          </Col>
-        </Row>
+        <FormItem label="size" :label-width="50">
+          <Select v-model="props.group.size" size="small" style="width: 100%">
+            <Option v-for="item in sizeList" :value="item" :key="item">{{
+              item
+            }}</Option>
+          </Select>
+        </FormItem>
       </div>
       <!-- 主属性 -->
       <!-- 子属性 -->
@@ -75,13 +53,13 @@
             <div slot="content">
               <FormItem
                 label="label"
-                :label-width="50"
+                :label-width="70"
                 :style="'align-item: center'"
               >
                 <Input
                   v-model="props.child[index].label"
                   size="small"
-                  :style="'margin-right: 3px'"
+                  :style="'width: 84%; margin-right: 3px'"
                 >
                 </Input>
               </FormItem>
@@ -90,7 +68,6 @@
                   v-model="props.child[index].size"
                   size="small"
                   style="width: 100%"
-                  :disabled="typeFlag"
                 >
                   <Option v-for="item in sizeList" :value="item" :key="item">{{
                     item
@@ -104,11 +81,8 @@
                   </FormItem>
                 </Col>
                 <Col span="12">
-                  <FormItem label="border" :label-width="60">
-                    <Checkbox
-                      v-model="props.child[index].border"
-                      :disabled="typeFlag"
-                    />
+                  <FormItem label="border">
+                    <Checkbox v-model="props.child[index].border" />
                   </FormItem>
                 </Col>
               </Row>
@@ -140,13 +114,12 @@
 
 <script>
 export default {
-  name: "radioGroupProps",
+  name: "checkboxGroupProps",
   data() {
     return {
       sizeList: ["default", "large", "small"],
       textAlignList: ["left", "center", "right"],
       select: "0",
-      typeFlag: false,
     };
   },
   computed: {
@@ -161,7 +134,7 @@ export default {
     // 添加选项
     onAddOption() {
       this.props.child.push({
-        label: `label ${this.props.child.length + 1}`,
+        label: "default",
         size: "default",
         disabled: false,
         border: false,
@@ -175,16 +148,12 @@ export default {
       this.props.child.splice(index, 1);
     },
   },
-  watch: {
-    "props.group.type"(val) {
-      this.typeFlag = val === "button";
-    },
-  },
+  watch: {},
 };
 </script>
 
 <style lang="less">
-.radio-group-props {
+.checkbox-group-props {
   .block {
     padding: 8px;
     margin: 2px;

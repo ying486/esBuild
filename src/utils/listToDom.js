@@ -2,6 +2,8 @@ import Vue from 'Vue';
 import { templateCode } from "./template";
 import { configList } from "../views/config";
 
+const defaultType = ["Input", "i-switch", "InputNumber"]
+
 // 处理数据
 export const handleData = (list) => {
   let body = "";
@@ -25,7 +27,7 @@ export const handleData = (list) => {
 // 判断标签类型
 function _judgeType(item) {
   const initVal = configList.find((e) => e.type === item.type);
-  if (item.type.includes(['Input'])) {
+  if (defaultType.includes(item.type)) {
     return _handleItem(initVal, item)
   } else {
     return _handleItemSec(initVal, item)
