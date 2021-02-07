@@ -68,3 +68,26 @@ export const checkTools = {
     return this._typeOf(obj) === 'object'
   }
 };
+
+/**
+ * @function deepClone
+ * @Description: 用于数据的深拷贝
+ * @params target：需要拷贝的对象
+ */
+export const deepClone = (target) => {
+  let obj = null;
+  if (checkTools.isArray(target)) {
+    obj = [];
+    target.forEach((item) => {
+      obj.push(deepClone(item));
+    });
+  } else if (checkTools.isObject(target)) {
+    obj = {};
+    for (let k in target) {
+      obj[k] = deepClone(target[k]);
+    }
+  } else {
+    return target;
+  }
+  return obj;
+};

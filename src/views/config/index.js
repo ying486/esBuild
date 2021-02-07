@@ -134,6 +134,59 @@ export const configList = [
       },
     ],
   },
+  // Rate
+  {
+    type: "Rate",
+    name: "Rate 评分",
+    props: {
+      labelName: "Rate",
+      'v-model': 'defaultRate',
+      count: 5,
+      character: "",
+      icon: "",
+      'allow-half': false,
+      disabled: false,
+      'show-text': false,
+      clearable: false,
+    },
+    styles: [
+      {
+        name: "text-align",
+        value: "right", // ["left", "center", "right"],
+      },
+    ],
+  },
+  // DatePicker
+  {
+    type: "DatePicker",
+    name: "DatePicker 日期选择器",
+    props: {
+      labelName: "DatePicker",
+      'v-model': 'defaultDatePicker',
+      size: 'default', // ['default','large','small']
+      type: "date", // ["date", "daterange", "datetime","datetimerange","year","month"]
+      format: "",
+      placement: "bottom-start", // ["top","top-start","top-end","bottom","bottom-start","bottom-end","left","left-start","right","right-start","right-end"]
+      placeholder: "",
+      'start-date': null,
+      separator: " - ",
+      multiple: false,
+      confirm: false,
+      disabled: false,
+      clearable: true,
+      readonly: false,
+      editable: true,
+      capture: true,
+      'split-panels': false,
+      'show-week-numbers': false,
+    },
+    styles: [
+      {
+        name: "text-align",
+        value: "right", // ["left", "center", "right"],
+      },
+    ],
+  },
   // ColorPicker
   // {
   //   type: "ColorPicker",

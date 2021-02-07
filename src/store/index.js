@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { deepClone } from '../utils/tools';
 
 Vue.use(Vuex)
 
@@ -7,7 +8,7 @@ export default new Vuex.Store({
   state: {
     componentList: [
       {
-        name: 'Row',
+        name: 'Column',
         children: [
           {
             type: "Input",
@@ -43,30 +44,27 @@ export default new Vuex.Store({
             key: 123
           },
           {
-            type: "RadioGroup",
-            name: "Radio 单选框组",
-            childTag: "Radio",
+            type: "InputNumber",
+            name: "InputNumber 数字输入框",
             props: {
-              labelName: "单选名",
-              group: {
-                'v-model': 'defaultRadio',
-                type: null, // "button"
-                size: 'default', // ['default','large','small']
-                vertical: false
-              },
-              child: [
-                {
-                  label: "label 1",
-                  size: 'default', // ['default','large','small']
-                  disabled: false,
-                  border: false,
-                },
-              ]
+              labelName: "InputNumber",
+              'v-model': 'defaultInputNumber',
+              size: 'default', // ['default','large','small']
+              placeholder: "",
+              max: Infinity,
+              min: -Infinity,
+              step: 1,
+              precision: null,
+              'controls-outside': false,
+              disabled: false,
+              readonly: false,
+              editable: true,
+              'active-change': false
             },
             styles: [
               {
                 name: "text-align",
-                value: "right",
+                value: "right", // ["left", "center", "right"],
               },
             ],
             key: 1234
@@ -95,7 +93,7 @@ export default new Vuex.Store({
       const boxIndex = data.boxIndex;
       const key = (new Date()).getTime()
       Vue.set(state.componentList[boxIndex].children, index, {
-        ...JSON.parse(JSON.stringify(state.componentList[boxIndex].children[index])), // 解决数据存储地址相同问题
+        ...deepClone(state.componentList[boxIndex].children[index]), // 解决数据存储地址相同问题
         key
       })
     },

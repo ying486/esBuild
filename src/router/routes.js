@@ -29,6 +29,16 @@ export const routeMap = [
                 name: 'InputNumber',
                 component: () => import('../views/models/inputNumberProps'),
             },
+            {
+                path: 'Rate',
+                name: 'Rate',
+                component: () => import('../views/models/rateProps'),
+            },
+            {
+                path: 'DatePicker',
+                name: 'DatePicker',
+                component: () => import('../views/models/datePickerProps'),
+            },
             // {
             //     path: 'ColorPicker',
             //     name: 'ColorPicker',

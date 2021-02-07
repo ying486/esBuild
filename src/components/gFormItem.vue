@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      defaultType: ["Input", "i-switch", "InputNumber"],
+      defaultType: ["Input", "i-switch", "InputNumber", "Rate", "DatePicker"],
       interType: ["RadioGroup", "CheckboxGroup"],
     };
   },

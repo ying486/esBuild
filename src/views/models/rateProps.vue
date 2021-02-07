@@ -1,6 +1,6 @@
 <template>
-  <div class="input-number-props">
-    <Form :model="props" label-position="left" :label-width="70">
+  <div class="rate-props">
+    <Form :model="props" label-position="left" :label-width="80">
       <!-- 属性 -->
       <div class="block">
         <h4 class="title">Properties</h4>
@@ -20,71 +20,47 @@
             clearable
           ></Input>
         </FormItem>
-        <FormItem label="size" :label-width="40">
-          <Select v-model="props.size" size="small" style="width: 100%">
-            <Option v-for="item in sizeList" :value="item" :key="item">{{
-              item
-            }}</Option>
-          </Select>
+        <FormItem label="count">
+          <InputNumber v-model="props.count" :precision="0" :min="0" />
         </FormItem>
-        <FormItem label="placeholder" :label-width="80">
+        <FormItem label="character">
           <Input
-            v-model="props.placeholder"
-            placeholder="占位文本"
+            v-model="props.character"
+            placeholder="自定义字符"
             size="small"
             clearable
           />
         </FormItem>
+        <FormItem label="icon">
+          <Input
+            v-model="props.icon"
+            placeholder="图标名称"
+            size="small"
+            clearable
+          />
+        </FormItem>
+        <div class="annotation">* 优先级 character > icon</div>
         <Row>
-          <Col span="13">
-            <FormItem label="max" :label-width="40">
-              <InputNumber v-model="props.max" />
+          <Col span="12">
+            <FormItem label="allow-half">
+              <Checkbox v-model="props['allow-half']" />
             </FormItem>
           </Col>
-          <Col span="11">
-            <FormItem label="min" :label-width="46">
-              <InputNumber v-model="props.min" />
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="11">
-            <FormItem label="step" :label-width="40">
-              <InputNumber v-model="props.step" :min="0" />
-            </FormItem>
-          </Col>
-          <Col span="13">
-            <FormItem label="precision">
-              <InputNumber v-model="props.precision" :precision="0" :min="0" />
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="8">
-            <FormItem label="editable" :label-width="60">
-              <Checkbox v-model="props.editable" />
-            </FormItem>
-          </Col>
-          <Col span="8">
-            <FormItem label="disabled" :label-width="64">
+          <Col span="12">
+            <FormItem label="disabled">
               <Checkbox v-model="props.disabled" />
             </FormItem>
           </Col>
-          <Col span="8">
-            <FormItem label="readonly" :label-width="65">
-              <Checkbox v-model="props.readonly" />
-            </FormItem>
-          </Col>
         </Row>
         <Row>
-          <Col span="13">
-            <FormItem label="controls-outside" :label-width="112">
-              <Checkbox v-model="props['controls-outside']" />
+          <Col span="12">
+            <FormItem label="show-text">
+              <Checkbox v-model="props['show-text']" />
             </FormItem>
           </Col>
-          <Col span="11">
-            <FormItem label="active-change" :label-width="100">
-              <Checkbox v-model="props['active-change']" />
+          <Col span="12">
+            <FormItem label="clearable">
+              <Checkbox v-model="props.clearable" />
             </FormItem>
           </Col>
         </Row>
@@ -110,7 +86,7 @@
 
 <script>
 export default {
-  name: "inputNumberProps",
+  name: "rateProps",
   data() {
     return {
       sizeList: ["default", "large", "small"],
@@ -131,7 +107,7 @@ export default {
 </script>
 
 <style lang="less">
-.input-number-props {
+.rate-props {
   .block {
     padding: 8px;
     margin: 2px;

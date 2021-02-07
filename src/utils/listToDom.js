@@ -2,7 +2,7 @@ import Vue from 'Vue';
 import { templateCode } from "./template";
 import { configList } from "../views/config";
 
-const defaultType = ["Input", "i-switch", "InputNumber"]
+const defaultType = ["Input", "i-switch", "InputNumber", "Rate", "DatePicker"]
 
 // 处理数据
 export const handleData = (list) => {
