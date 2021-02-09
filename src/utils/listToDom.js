@@ -2,7 +2,7 @@ import Vue from 'Vue';
 import { templateCode } from "./template";
 import { configList } from "../views/config";
 
-const defaultType = ["Input", "i-switch", "InputNumber", "Rate", "DatePicker"]
+const defaultType = ["Input", "i-switch", "InputNumber", "Rate", "DatePicker", "TimePicker", "Cascader"]
 
 // 处理数据
 export const handleData = (list) => {
@@ -98,9 +98,12 @@ function _getPropsSec(initVal, newVal) {
 // 将键值对转化为Dom中的属性
 function _getDomPropStr(propName, obj) {
   let type = typeof obj[propName]
+  console.log(type);
   switch (type) {
     case 'string':
       return `${propName}="${obj[propName]}"`
+    case 'object':
+      return `:${propName}="REPLACE"`
     default:
       return `:${propName}="${obj[propName]}"`
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="input-number-props">
+  <div class="time-picker-props">
     <Form :model="props" label-position="left" :label-width="70">
       <!-- 属性 -->
       <div class="block">
@@ -20,20 +20,26 @@
             clearable
           ></Input>
         </FormItem>
-        <FormItem label="size" :label-width="40">
-          <Select v-model="props.size" size="small" style="width: 100%">
-            <Option v-for="item in sizeList" :value="item" :key="item">{{
-              item
-            }}</Option>
-          </Select>
-        </FormItem>
-        <FormItem label="type" :label-width="40">
-          <Select v-model="props.type" size="small" style="width: 100%">
-            <Option v-for="item in typeList" :value="item" :key="item">{{
-              item
-            }}</Option>
-          </Select>
-        </FormItem>
+        <Row>
+          <Col span="12">
+            <FormItem label="size" :label-width="40">
+              <Select v-model="props.size" size="small" style="width: 90%">
+                <Option v-for="item in sizeList" :value="item" :key="item">{{
+                  item
+                }}</Option>
+              </Select>
+            </FormItem>
+          </Col>
+          <Col span="12">
+            <FormItem label="type" :label-width="40">
+              <Select v-model="props.type" size="small" style="width: 100%">
+                <Option v-for="item in typeList" :value="item" :key="item">{{
+                  item
+                }}</Option>
+              </Select>
+            </FormItem>
+          </Col>
+        </Row>
         <FormItem label="format" :label-width="50">
           <Input
             v-model="props.format"
@@ -57,83 +63,16 @@
             clearable
           />
         </FormItem>
-        <FormItem label="start-date" :label-width="72">
-          <DatePicker
-            type="date"
+        <FormItem label="separator">
+          <Input
+            v-model="props.separator"
             size="small"
-            placement="bottom-end"
-            placeholder="选择开始日期"
-          ></DatePicker>
+            clearable
+            placeholder="分隔符"
+            :disabled="typeFlag"
+          />
         </FormItem>
         <Row>
-          <Col span="14">
-            <FormItem label="separator">
-              <Input
-                v-model="props.separator"
-                size="small"
-                clearable
-                style="width: 90%"
-                placeholder="分隔符"
-                :disabled="typeFlag"
-              />
-            </FormItem>
-          </Col>
-          <Col span="8">
-            <Tooltip
-              placement="left"
-              max-width="200"
-              :delay="500"
-              :content="splitPanelsTip"
-            >
-              <FormItem label="split-panels" :label-width="88">
-                <Checkbox
-                  v-model="props['split-panels']"
-                  :disabled="typeFlag"
-                />
-              </FormItem>
-            </Tooltip>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="8">
-            <FormItem label="multiple" :label-width="60">
-              <Checkbox v-model="props.multiple" />
-            </FormItem>
-          </Col>
-          <Col span="8">
-            <FormItem label="confirm" :label-width="64">
-              <Checkbox v-model="props.confirm" />
-            </FormItem>
-          </Col>
-          <Col span="8">
-            <FormItem label="disabled" :label-width="65">
-              <Checkbox v-model="props.disabled" />
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="8">
-            <FormItem label="clearable" :label-width="60">
-              <Checkbox v-model="props.clearable" />
-            </FormItem>
-          </Col>
-          <Col span="8">
-            <FormItem label="readonly" :label-width="64">
-              <Checkbox v-model="props.readonly" />
-            </FormItem>
-          </Col>
-          <Col span="8">
-            <FormItem label="editable" :label-width="65">
-              <Checkbox v-model="props.editable" />
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="16">
-            <FormItem label="show-week-numbers" :label-width="150">
-              <Checkbox v-model="props['show-week-numbers']" />
-            </FormItem>
-          </Col>
           <Col span="8">
             <Tooltip
               placement="left"
@@ -145,6 +84,33 @@
                 <Checkbox v-model="props.capture" />
               </FormItem>
             </Tooltip>
+          </Col>
+          <Col span="8">
+            <FormItem label="confirm" :label-width="65">
+              <Checkbox v-model="props.confirm" />
+            </FormItem>
+          </Col>
+          <Col span="8">
+            <FormItem label="disabled" :label-width="65">
+              <Checkbox v-model="props.disabled" />
+            </FormItem>
+          </Col>
+        </Row>
+        <Row>
+          <Col span="8">
+            <FormItem label="clearable" :label-width="65">
+              <Checkbox v-model="props.clearable" />
+            </FormItem>
+          </Col>
+          <Col span="8">
+            <FormItem label="readonly" :label-width="65">
+              <Checkbox v-model="props.readonly" />
+            </FormItem>
+          </Col>
+          <Col span="8">
+            <FormItem label="editable" :label-width="65">
+              <Checkbox v-model="props.editable" />
+            </FormItem>
           </Col>
         </Row>
       </div>
@@ -169,18 +135,11 @@
 
 <script>
 export default {
-  name: "inputNumberProps",
+  name: "timePickerProps",
   data() {
     return {
       sizeList: ["default", "large", "small"],
-      typeList: [
-        "date",
-        "daterange",
-        "datetime",
-        "datetimerange",
-        "year",
-        "month",
-      ],
+      typeList: ["time", "timerange"],
       placementList: [
         "top",
         "top-start",
@@ -195,7 +154,6 @@ export default {
         "right-end",
       ],
       textAlignList: ["left", "center", "right"],
-      splitPanelsTip: "仅在 daterange 和 datetimerange 下可用。",
       captureTip:
         "capture 是浏览器的一种默认行为，如果开启，当可下拉的组件（例如 Select）处于展开状态时，点击外部操作不会立即响应，而是先收起下拉菜单，再次点击才会响应操作。",
       typeFlag: false,
@@ -212,16 +170,14 @@ export default {
   methods: {},
   watch: {
     "props.type"(val) {
-      const temp = !["daterange", "datetimerange"].includes(val);
-      this.typeFlag = temp;
-      temp && (this.props["split-panels"] = false);
+      this.typeFlag = !["TimePicker"].includes(val);
     },
   },
 };
 </script>
 
 <style lang="less">
-.input-number-props {
+.time-picker-props {
   .block {
     padding: 8px;
     margin: 2px;

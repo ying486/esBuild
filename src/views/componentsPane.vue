@@ -12,6 +12,7 @@
           :sort="false"
         >
           <MenuItem
+            class="menu-item"
             v-for="item in layoutList"
             :name="item.name"
             :key="item.name"
@@ -28,6 +29,7 @@
         <draggable v-model="configList" v-bind="dragOpts" :sort="false">
           <transition-group>
             <MenuItem
+              class="menu-item"
               v-for="item in configList"
               :name="item.type"
               :key="item.type"
@@ -76,7 +78,9 @@ export default {
   width: 200px;
   height: 100%;
   background-color: #eeeeee;
-
+  .menu-item {
+    font-size: 12px;
+  }
   .ivu-menu {
     background-color: #eeeeee;
   }

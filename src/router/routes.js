@@ -39,6 +39,16 @@ export const routeMap = [
                 name: 'DatePicker',
                 component: () => import('../views/models/datePickerProps'),
             },
+            {
+                path: 'TimePicker',
+                name: 'TimePicker',
+                component: () => import('../views/models/timePickerProps'),
+            },
+            {
+                path: 'Cascader',
+                name: 'Cascader',
+                component: () => import('../views/models/cascaderProps'),
+            },
             // {
             //     path: 'ColorPicker',
             //     name: 'ColorPicker',

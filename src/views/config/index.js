@@ -1,3 +1,5 @@
+import { cascader } from './exampleData';
+
 export const configList = [
   // Input
   {
@@ -64,7 +66,7 @@ export const configList = [
   // CheckboxGroup
   {
     type: "CheckboxGroup",
-    name: "CheckboxGroup 多选框组",
+    name: "Checkbox 多选框组",
     childTag: "Checkbox",
     props: {
       labelName: "Checkbox",
@@ -179,6 +181,97 @@ export const configList = [
       capture: true,
       'split-panels': false,
       'show-week-numbers': false,
+    },
+    styles: [
+      {
+        name: "text-align",
+        value: "right", // ["left", "center", "right"],
+      },
+    ],
+  },
+  // TimePicker
+  {
+    type: "TimePicker",
+    name: "TimePicker 时间选择器",
+    props: {
+      labelName: "TimePicker",
+      'v-model': 'defaultTimePicker',
+      size: 'default', // ['default','large','small']
+      type: "time", // ["time", "timerange"]
+      format: "",
+      placement: "bottom-start", // ["top","top-start","top-end","bottom","bottom-start","bottom-end","left","left-start","right","right-start","right-end"]
+      placeholder: "",
+      separator: " - ",
+      confirm: false,
+      disabled: false,
+      clearable: true,
+      readonly: false,
+      editable: true,
+      capture: true,
+    },
+    styles: [
+      {
+        name: "text-align",
+        value: "right", // ["left", "center", "right"],
+      },
+    ],
+  },
+  // Select
+  {
+    type: "Select",
+    name: "Select 多选框组",
+    childTag: "Option",
+    props: {
+      labelName: "Select",
+      group: {
+        'v-model': 'defaultSelect',
+        size: 'default', // ['default','large','small']
+        placement: "bottom-start", // ["top","top-start","top-end","bottom","bottom-start","bottom-end"]
+        placeholder: "",
+        "not-found-text": "无匹配数据",
+        prefix: "",
+        "max-tag-count": null,
+        multiple: false,
+        disabled: false,
+        clearable: false,
+        filterable: false,
+        "filter-by-label": false,
+        "label-in-value": false,
+        'allow-create': false,
+        capture: false
+      },
+      child: [
+        {
+          label: "label 1",
+          size: 'default', // ['default','large','small']
+          disabled: false,
+          tag: "",
+        },
+      ]
+    },
+    styles: [
+      {
+        name: "text-align",
+        value: "right",
+      },
+    ],
+  },
+  // Cascader
+  {
+    type: "Cascader",
+    name: "Cascader 时间选择器",
+    props: {
+      data: cascader,
+      labelName: "Cascader",
+      'v-model': 'defaultCascader',
+      size: 'default', // ['default','large','small']
+      placeholder: "",
+      trigger: "click", // ['click','hover']
+      "not-found-text": "无匹配数据",
+      'change-on-select': false,
+      filterable: false,
+      disabled: false,
+      clearable: true,
     },
     styles: [
       {
