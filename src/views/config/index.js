@@ -235,17 +235,15 @@ export const configList = [
         disabled: false,
         clearable: false,
         filterable: false,
-        "filter-by-label": false,
+        // "filter-by-label": false,
         "label-in-value": false,
-        'allow-create': false,
-        capture: false
       },
       child: [
         {
+          value: "label 1",
           label: "label 1",
-          size: 'default', // ['default','large','small']
           disabled: false,
-          tag: "",
+          // tag: null,
         },
       ]
     },

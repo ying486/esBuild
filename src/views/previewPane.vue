@@ -1,6 +1,6 @@
 <template>
   <div class="preview-pane">
-    <!-- <div>{{ componentList }}</div> -->
+    <div>{{ componentList }}</div>
     <div class="tag">Column</div>
     <draggable
       v-model="componentList"

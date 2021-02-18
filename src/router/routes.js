@@ -49,6 +49,11 @@ export const routeMap = [
                 name: 'Cascader',
                 component: () => import('../views/models/cascaderProps'),
             },
+            {
+                path: 'Select',
+                name: 'Select',
+                component: () => import('../views/models/selectProps'),
+            },
             // {
             //     path: 'ColorPicker',
             //     name: 'ColorPicker',

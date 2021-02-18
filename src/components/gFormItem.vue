@@ -67,7 +67,7 @@ export default {
         "TimePicker",
         "Cascader",
       ],
-      interType: ["RadioGroup", "CheckboxGroup"],
+      interType: ["RadioGroup", "CheckboxGroup", "Select"],
     };
   },
   computed: {

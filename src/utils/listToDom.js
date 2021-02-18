@@ -42,12 +42,12 @@ function _handleItem(initVal, obj) {
 }
 // 处理单个标签（含内标签类型）
 function _handleItemSec(initVal, obj) {
+  const childTag = obj.childTag; // 子标签名
   const newObj = _getPropsSec(initVal, obj);
   const group = newObj.group.join(" ");
-  const child = newObj.child.join(" ");
+  const child = newObj.child.join(`></${childTag}><${childTag} `);
   return `<${obj.type} ${group}>
-    <${obj.childTag} ${child}>
-    </${obj.childTag}>
+  <${childTag} ${child}></${childTag}>
   </${obj.type}>`;
 }
 
