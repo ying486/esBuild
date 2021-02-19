@@ -8,13 +8,12 @@ const defaultType = ["Input", "i-switch", "InputNumber", "Rate", "DatePicker", "
 export const handleData = (list) => {
   let body = "";
   for (let box of list) {
-    let items = "";
+    let items = [];
     for (let item of box.children) {
-      const temp = _judgeType(item);
-      items = items + temp;
+      items.push(_judgeType(item))
     }
-    const sortType = `<div class='${box.name}'>${items}</div>`;
-    body = body + sortType;
+    const str = _getDombySort(box, items);
+    body = body + str;
   }
   // 代码美化
   const beautifyData = Vue.prototype.jsBeautify.html_beautify(templateCode(body), {
@@ -24,6 +23,21 @@ export const handleData = (list) => {
   return beautifyData;
 }
 
+// 根据排序类型生成不同Dom
+function _getDombySort(box, items) {
+  let str = ""
+  switch (box.name) {
+    case 'Row':
+      items.forEach((el, index) => {
+        str = str + `<Col span="${box.colList[index]}">${el}</Col>`
+      });
+      str = `<Row>${str}</Row>`
+      return str;
+    case 'Column':
+      str = items.join(" ")
+      return str;
+  }
+}
 // 判断标签类型
 function _judgeType(item) {
   const initVal = configList.find((e) => e.type === item.type);
@@ -38,7 +52,9 @@ function _judgeType(item) {
 function _handleItem(initVal, obj) {
   const list = _getProps(initVal, obj);
   const data = list.join(" ");
-  return `<${obj.type} ${data}></${obj.type}>`;
+  return `<FormItem label="${obj.props.labelName}">
+            <${obj.type} ${data}></${obj.type}>
+          </FormItem>`;
 }
 // 处理单个标签（含内标签类型）
 function _handleItemSec(initVal, obj) {
@@ -46,19 +62,22 @@ function _handleItemSec(initVal, obj) {
   const newObj = _getPropsSec(initVal, obj);
   const group = newObj.group.join(" ");
   const child = newObj.child.join(`></${childTag}><${childTag} `);
-  return `<${obj.type} ${group}>
-  <${childTag} ${child}></${childTag}>
-  </${obj.type}>`;
+  return `<FormItem label="${obj.props.labelName}">
+            <${obj.type} ${group}>
+              <${childTag} ${child}></${childTag}>
+            </${obj.type}>
+          </FormItem>`;
 }
 
 // 获取与默认值不同的属性
 function _getProps(initVal, newVal) {
   let list = []
-  delete initVal.props['v-model']
+  let initV = JSON.parse(JSON.stringify(initVal))
+  delete initV.props['v-model']
 
   for (let key in newVal.props) {
-    // 去除值为默认的属性
-    if (initVal.props[key] !== newVal.props[key]) {
+    // 不为默认的属性时
+    if (initV.props[key] !== newVal.props[key] && key !== 'labelName') {
       list.push(_getDomPropStr(key, newVal.props))
     }
   }
@@ -69,17 +88,18 @@ function _getProps(initVal, newVal) {
 function _getPropsSec(initVal, newVal) {
   let group = []
   let child = []
-  delete initVal.props.group['v-model']
-  delete initVal.props.child[0].label
+  let initV = JSON.parse(JSON.stringify(initVal))
+  delete initV.props.group['v-model']
+  delete initV.props.child[0].label
 
-  const initGroupProps = initVal.props.group
-  const initChildProps = initVal.props.child[0]
+  const initGroupProps = initV.props.group
+  const initChildProps = initV.props.child[0]
   const groupProps = newVal.props.group
   const childProps = newVal.props.child
 
   for (let key in groupProps) {
-    // 去除值为默认的属性
-    if (initGroupProps[key] !== groupProps[key]) {
+    // 不为默认的属性时
+    if (initGroupProps[key] !== groupProps[key] && key !== 'labelName') {
       group.push(_getDomPropStr(key, groupProps))
     }
   }
@@ -98,7 +118,6 @@ function _getPropsSec(initVal, newVal) {
 // 将键值对转化为Dom中的属性
 function _getDomPropStr(propName, obj) {
   let type = typeof obj[propName]
-  console.log(type);
   switch (type) {
     case 'string':
       return `${propName}="${obj[propName]}"`

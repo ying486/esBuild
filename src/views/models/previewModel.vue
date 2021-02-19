@@ -7,19 +7,42 @@
     footer-hide
     @on-visible-change="onVisiblechange"
   >
-    <div
-      v-for="(box, boxIndex) in componentList"
-      :key="boxIndex"
-      :class="box.name === 'Row' ? 'rowClass' : 'columnClass'"
-    >
-      <g-form-item
-        v-for="(item, index) in box.children"
-        :key="item.key"
-        :obj="item"
-        :boxIndex="boxIndex"
-        :index="index"
-      ></g-form-item>
-    </div>
+    <Form :label-width="100">
+      <div v-for="(box, boxIndex) in componentList" :key="boxIndex">
+        <!-- row -->
+        <Row v-if="box.name === 'Row'">
+          <Col
+            v-for="(item, index) in box.children"
+            :key="index"
+            :span="box.colList[index]"
+          >
+            <FormItem :label="item.props.labelName">
+              <g-form-item
+                :obj="item"
+                :boxIndex="boxIndex"
+                :index="index"
+              ></g-form-item>
+            </FormItem>
+          </Col>
+        </Row>
+        <!-- row -->
+        <!-- column -->
+        <div v-else>
+          <FormItem
+            v-for="(item, index) in box.children"
+            :key="item.key"
+            :label="item.props.labelName"
+          >
+            <g-form-item
+              :obj="item"
+              :boxIndex="boxIndex"
+              :index="index"
+            ></g-form-item>
+          </FormItem>
+        </div>
+        <!-- column -->
+      </div>
+    </Form>
   </Modal>
 </template>
 
@@ -64,13 +87,5 @@ export default {
 
 <style lang="less" >
 .preview-model {
-  .rowClass {
-    display: flex;
-    flex-direction: row;
-  }
-  .columnClass {
-    display: flex;
-    flex-direction: column;
-  }
 }
 </style>

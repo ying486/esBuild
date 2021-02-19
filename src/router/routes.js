@@ -54,6 +54,11 @@ export const routeMap = [
                 name: 'Select',
                 component: () => import('../views/models/selectProps'),
             },
+            {
+                path: 'Box',
+                name: 'Box',
+                component: () => import('../views/models/boxProps'),
+            },
             // {
             //     path: 'ColorPicker',
             //     name: 'ColorPicker',

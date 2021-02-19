@@ -8,71 +8,14 @@ export default new Vuex.Store({
   state: {
     componentList: [
       {
-        name: 'Column',
-        children: [
-          {
-            type: "Input",
-            name: "测试",
-            props: {
-              labelName: "Input",
-              'v-model': 'defaultInput',
-              type: 'text', // ['text','password','textarea','url','email','date','number','tel']
-              size: 'default', // ['default','large','small']
-              placeholder: "",
-              maxlength: null,
-              'show-word-limit': false,
-              rows: null,
-              icon: '',
-              prefix: '',
-              suffix: '',
-              clearable: false,
-              disabled: false,
-              readonly: false,
-              password: false,
-              search: false,
-              'enter-button': false,
-              autosize: false,
-              number: false,
-              autofocus: false,
-            },
-            styles: [
-              {
-                name: 'text-align',
-                value: "right"
-              }
-            ],
-            key: 123
-          },
-          {
-            type: "InputNumber",
-            name: "InputNumber 数字输入框",
-            props: {
-              labelName: "InputNumber",
-              'v-model': 'defaultInputNumber',
-              size: 'default', // ['default','large','small']
-              placeholder: "",
-              max: Infinity,
-              min: -Infinity,
-              step: 1,
-              precision: null,
-              'controls-outside': false,
-              disabled: false,
-              readonly: false,
-              editable: true,
-              'active-change': false
-            },
-            styles: [
-              {
-                name: "text-align",
-                value: "right", // ["left", "center", "right"],
-              },
-            ],
-            key: 1234
-          },
-        ],
-        key: 111
+        col: "12:12",
+        colList: ["12", "12"],
+        name: "Row",
+        num: 1,
+        width: "100%",
+        children: [],
+        key: 123
       },
-
     ],
     currentProps: {},
     currentStyles: []
@@ -86,9 +29,11 @@ export default new Vuex.Store({
         key,
         children: []
       })
+      console.log(state.componentList, "com");
     },
     // 添加组件
     add(state, data) {
+      console.log(state, "stte");
       const index = data.index;
       const boxIndex = data.boxIndex;
       const key = (new Date()).getTime()
@@ -100,6 +45,11 @@ export default new Vuex.Store({
     // 移动
     move(state, list) {
       state.componentList = JSON.parse(JSON.stringify(list))
+    },
+    // 选择盒子
+    selectBox(state, index) {
+      state.currentProps = state.componentList[index]
+      // state.currentStyles = state.componentList[data.boxIndex].children[data.index].styles
     },
     // 选择单个组件
     select(state, data) {

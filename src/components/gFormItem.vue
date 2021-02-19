@@ -1,19 +1,20 @@
 <template>
   <div class="g-form-item">
-    <div class="label" :style="changeStyle">{{ obj.props.labelName }}</div>
     <component
       v-if="defaultType.includes(obj.type)"
       class="content"
       v-bind="obj.props"
+      :style="limitStyle.includes(obj.type) ? 'width: 50%' : ''"
       :is="obj.type"
-      @click.native="showDel && onClick(boxIndex, index)"
+      @click.native.stop="showDel && onClick(boxIndex, index)"
     >
     </component>
     <component
       v-if="interType.includes(obj.type)"
       v-bind="obj.props.group"
       :is="obj.type"
-      @click.native="showDel && onClick(boxIndex, index)"
+      style="width: 50%"
+      @click.native.stop="showDel && onClick(boxIndex, index)"
     >
       <component
         v-for="(item, index) in obj.props.child"
@@ -24,6 +25,7 @@
       ></component>
     </component>
     <Button
+      class="btn"
       v-if="showDel"
       type="primary"
       size="small"
@@ -68,6 +70,7 @@ export default {
         "Cascader",
       ],
       interType: ["RadioGroup", "CheckboxGroup", "Select"],
+      limitStyle: ["Input", "Cascader"],
     };
   },
   computed: {
@@ -96,17 +99,11 @@ export default {
 </script>
 <style lang="less">
 .g-form-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 5px;
-  .label {
-    width: 100px;
-    margin-right: 5px;
-    text-align: left;
-  }
-  .content {
-    margin: 0 5px;
+  position: relative;
+  .btn {
+    position: absolute;
+    right: 40%;
+    bottom: 10%;
   }
 }
 </style>

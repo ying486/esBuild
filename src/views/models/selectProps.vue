@@ -59,21 +59,22 @@
         </FormItem>
         <Row>
           <Col span="14">
-            <FormItem label="max-tag-count" :label-width="102">
-              <!-- <Input
-                v-model="props.group['max-tag-count']"
-                size="small"
-                type="number"
-                clearable
-              /> -->
-              <InputNumber
-                v-model="props.group['max-tag-count']"
-                size="small"
-                style="width: 90%"
-                :min="0"
-                :disabled="multipleFlag"
-              />
-            </FormItem>
+            <Tooltip
+              placement="left"
+              max-width="200"
+              :delay="500"
+              content="为空时，默认不做数量限制"
+            >
+              <FormItem label="max-tag-count" :label-width="102">
+                <InputNumber
+                  v-model="props.group['max-tag-count']"
+                  size="small"
+                  style="width: 90%"
+                  :min="0"
+                  :disabled="multipleFlag"
+                />
+              </FormItem>
+            </Tooltip>
           </Col>
           <Col span="10">
             <FormItem label="label-in-value" :label-width="100">
@@ -244,6 +245,7 @@ export default {
   },
   watch: {
     "props.group.multiple"(val) {
+      console.log(this.props.group["max-tag-count"], "count");
       this.multipleFlag = !val;
       this.props.group["max-tag-count"] = val
         ? this.props.group["max-tag-count"]

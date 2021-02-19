@@ -1,38 +1,77 @@
 <template>
-  <div class="preview-pane">
-    <div>{{ componentList }}</div>
-    <div class="tag">Column</div>
+  <Form class="preview-pane" label-position="right" :label-width="100">
+    <div class="tag" style="width: 60px">Column</div>
     <draggable
       v-model="componentList"
       group="layout"
       animation="500"
       :style="containerStyle"
     >
-      <div v-for="(box, boxIndex) in componentList" :key="boxIndex">
+      <div
+        v-for="(box, boxIndex) in componentList"
+        :key="boxIndex"
+        @click="box.name === 'Row' && onBox(boxIndex)"
+      >
         <div class="tag-contaner">
-          <div class="tag">{{ box.name }}</div>
+          <div class="tag" v-if="box.name === 'Row'">
+            {{ box.name + " " + box.col }}
+          </div>
+          <div class="tag" v-else>{{ box.name }}</div>
           <div class="tag" @click="onDelBox(boxIndex)">delete</div>
         </div>
+        <!-- row -->
         <draggable
+          v-if="box.name === 'Row'"
           v-model="box.children"
           group="site"
           animation="500"
-          :class="box.name === 'Row' ? 'rowClass' : 'columnClass'"
+          :style="boxStyle"
+          :disabled="isDisabled(box)"
+          @add="onAdd(boxIndex, $event)"
+        >
+          <Col
+            v-for="(item, index) in box.children"
+            :key="index"
+            :span="box.colList[index]"
+          >
+            <FormItem :label="item.props.labelName">
+              <g-form-item
+                :obj="item"
+                :boxIndex="boxIndex"
+                :index="index"
+                :showDel="true"
+              ></g-form-item>
+            </FormItem>
+          </Col>
+        </draggable>
+        <!-- row -->
+        <!-- column -->
+        <draggable
+          v-else
+          v-model="box.children"
+          group="site"
+          animation="500"
           :style="boxStyle"
           @add="onAdd(boxIndex, $event)"
         >
-          <g-form-item
+          <FormItem
             v-for="(item, index) in box.children"
             :key="item.key"
-            :obj="item"
-            :boxIndex="boxIndex"
-            :index="index"
-            :showDel="true"
-          ></g-form-item>
+            :label="item.props.labelName"
+          >
+            <g-form-item
+              :obj="item"
+              :boxIndex="boxIndex"
+              :index="index"
+              :showDel="true"
+            ></g-form-item>
+          </FormItem>
         </draggable>
+        <!-- column -->
       </div>
+      <!-- <div>{{ componentList }}</div> -->
     </draggable>
-  </div>
+  </Form>
 </template>
 
 <script>
@@ -83,6 +122,20 @@ export default {
     onDelBox(boxIndex) {
       this.$store.commit("delBox", boxIndex);
     },
+    onBox(boxIndex) {
+      this.$store.commit("selectBox", boxIndex);
+      if (this.$route.name !== "Box") {
+        this.$router.push({ name: "Box" });
+      }
+    },
+    // 当超过数量时不可再拖拽添加
+    isDisabled(box) {
+      const colList = box.col.split(":");
+      if (box.children.length >= colList.length) {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>
@@ -98,21 +151,13 @@ export default {
     justify-content: space-between;
   }
   .tag {
-    width: 60px;
+    min-width: 60px;
     height: 20px;
     text-align: center;
     border: 1px solid #e0e0e0;
     border-radius: 5px 5px 0 0;
     background-color: #e0e0e0;
     margin-top: 3px;
-  }
-  .rowClass {
-    display: flex;
-    flex-direction: row;
-  }
-  .columnClass {
-    display: flex;
-    flex-direction: column;
   }
 }
 </style>

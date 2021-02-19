@@ -52,10 +52,15 @@ export default {
     return {
       layoutList: [
         {
+          col: "12:12",
+          colList: ["12", "12"],
           name: "Row",
+          num: 1,
+          width: "100%",
         },
         {
           name: "Column",
+          width: "100%",
         },
       ],
       configList,

@@ -122,7 +122,7 @@ export const configList = [
       max: Infinity,
       min: -Infinity,
       step: 1,
-      precision: null,
+      precision: NaN,
       'controls-outside': false,
       disabled: false,
       readonly: false,

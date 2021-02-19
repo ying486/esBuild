@@ -3,7 +3,7 @@
     <Form
       v-if="Object.keys(props).length && props.group"
       :model="props"
-      label-position="right"
+      label-position="left"
       :label-width="70"
     >
       <!-- 主属性 -->
@@ -51,17 +51,8 @@
               ><Icon type="md-remove"
             /></Button>
             <div slot="content">
-              <FormItem
-                label="label"
-                :label-width="70"
-                :style="'align-item: center'"
-              >
-                <Input
-                  v-model="props.child[index].label"
-                  size="small"
-                  :style="'width: 84%; margin-right: 3px'"
-                >
-                </Input>
+              <FormItem label="label" :label-width="50">
+                <Input v-model="props.child[index].label" size="small"> </Input>
               </FormItem>
               <FormItem label="size" :label-width="50">
                 <Select

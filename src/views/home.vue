@@ -87,20 +87,19 @@ export default {
     // 下载
     onDownload() {
       const data = handleData(this.componentList);
-      console.log(data);
       // 定义文件内容，类型必须为Blob 否则createObjectURL会报错
-      // let content = new Blob([data]);
-      // // 生成url对象
-      // let urlObject = window.URL || window.webkitURL || window;
-      // let url = urlObject.createObjectURL(content);
-      // // 生成<a></a>DOM元素
-      // let el = document.createElement("a");
-      // // 链接赋值
-      // el.href = url;
-      // el.download = "data.vue";
-      // el.click();
-      // // 移除链接释放资源
-      // urlObject.revokeObjectURL(url);
+      let content = new Blob([data]);
+      // 生成url对象
+      let urlObject = window.URL || window.webkitURL || window;
+      let url = urlObject.createObjectURL(content);
+      // 生成<a></a>DOM元素
+      let el = document.createElement("a");
+      // 链接赋值
+      el.href = url;
+      el.download = "data.vue";
+      el.click();
+      // 移除链接释放资源
+      urlObject.revokeObjectURL(url);
     },
   },
 };
