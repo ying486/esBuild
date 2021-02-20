@@ -7,13 +7,9 @@
       animation="500"
       :style="containerStyle"
     >
-      <div
-        v-for="(box, boxIndex) in componentList"
-        :key="boxIndex"
-        @click="box.name === 'Row' && onBox(boxIndex)"
-      >
+      <div v-for="(box, boxIndex) in componentList" :key="boxIndex">
         <div class="tag-contaner">
-          <div class="tag" v-if="box.name === 'Row'">
+          <div class="tag" v-if="box.name === 'Row'" @click="onBox(boxIndex)">
             {{ `${box.name} ${box.col}` }}
           </div>
           <div class="tag" v-else>{{ box.name }}</div>
@@ -71,16 +67,18 @@
       </div>
       <!-- <div>{{ componentList }}</div> -->
     </draggable>
+    <row-model v-model="showRowModel" @close="onClose"></row-model>
   </Form>
 </template>
 
 <script>
 import { getNewObjFromList } from "../utils/tools";
 import GFormItem from "../components/gFormItem";
+import RowModel from "./models/rowModel";
 
 export default {
   name: "previewPane",
-  components: { GFormItem },
+  components: { GFormItem, RowModel },
   data() {
     return {
       containerStyle: {
@@ -98,6 +96,7 @@ export default {
         border: "2px solid #e0e0e0",
         "border-radius": "0 0 5px 5px",
       },
+      showRowModel: false,
     };
   },
   computed: {
@@ -124,9 +123,11 @@ export default {
     },
     onBox(boxIndex) {
       this.$store.commit("selectBox", boxIndex);
-      if (this.$route.name !== "Box") {
-        this.$router.push({ name: "Box" });
-      }
+      this.showRowModel = true;
+    },
+    // 关闭模态框
+    onClose() {
+      this.showRowModel = false;
     },
     // 当超过数量时不可再拖拽添加
     isDisabled(box) {
@@ -158,6 +159,7 @@ export default {
     border-radius: 5px 5px 0 0;
     background-color: #e0e0e0;
     margin-top: 3px;
+    padding: 0 5px;
   }
 }
 </style>

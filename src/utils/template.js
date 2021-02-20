@@ -1,10 +1,9 @@
 export const templateCode = (body) => {
-  return `
-<template>
+  return `<template>
   <div class="home">
-  <Form label-position="right" :label-width="100">
-  ${body}
-  </Form>
+    <Form label-position="right" :label-width="100">
+      ${body}
+    </Form>
   </div>
 </template>
 
@@ -22,7 +21,8 @@ export default {
 };
 </script>
 <style lang="less">
-.home{}
+.home{
+}
 </style>
 `
 }

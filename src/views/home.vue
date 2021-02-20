@@ -3,7 +3,6 @@
     <div class="top">
       <Icon class="icon" size="26" type="ios-outlet-outline" />
       <div class="title">EsBuild 1.0</div>
-
       <Button
         class="code-btn"
         type="primary"
@@ -17,7 +16,7 @@
         class="code-btn"
         type="primary"
         size="small"
-        icon="md-code"
+        icon="md-list"
         @click="showPreviewModel = true"
       >
         预览
@@ -26,7 +25,16 @@
         class="code-btn"
         type="primary"
         size="small"
-        icon="md-arrow-down"
+        icon="md-code"
+        @click="onCopy"
+      >
+        代码
+      </Button>
+      <Button
+        class="code-btn"
+        type="primary"
+        size="small"
+        icon="md-download"
         @click="onDownload"
       >
         下载
@@ -38,16 +46,19 @@
       <props-pane></props-pane>
     </div>
     <preview-model v-model="showPreviewModel"></preview-model>
+    <copy-model v-model="showCopyModel" :code="formCode"></copy-model>
   </div>
 </template>
 
 <script>
+import { templateCode } from "../utils/template";
 import { handleData } from "../utils/listToDom";
 import { configList } from "./config";
 import ComponentsPane from "./componentsPane";
 import PreviewPane from "./previewPane";
 import PropsPane from "./propsPane";
-import previewModel from "./models/previewModel";
+import PreviewModel from "./models/previewModel";
+import CopyModel from "./models/copyModel";
 
 export default {
   name: "home",
@@ -55,13 +66,16 @@ export default {
     ComponentsPane,
     PreviewPane,
     PropsPane,
-    previewModel,
+    PreviewModel,
+    CopyModel,
   },
   data() {
     return {
       configList,
       showPreviewModel: false,
+      showCopyModel: false,
       PreviewPane: PreviewPane,
+      formCode: "",
     };
   },
   computed: {
@@ -84,11 +98,24 @@ export default {
     onPreview() {
       this.showPreviewModel = true;
     },
+    // 复制
+    onCopy() {
+      this.formCode = handleData(this.componentList);
+      this.showCopyModel = true;
+    },
     // 下载
     onDownload() {
       const data = handleData(this.componentList);
+      // 代码美化
+      // const beautifyData = Vue.prototype.jsBeautify.html_beautify(
+      //   templateCode(data), // 插入模板
+      //   {
+      //     indent_size: 2,
+      //     space_in_empty_paren: true,
+      //   }
+      // );
       // 定义文件内容，类型必须为Blob 否则createObjectURL会报错
-      let content = new Blob([data]);
+      let content = new Blob([templateCode(data)]);
       // 生成url对象
       let urlObject = window.URL || window.webkitURL || window;
       let url = urlObject.createObjectURL(content);

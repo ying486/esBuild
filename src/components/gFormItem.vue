@@ -103,7 +103,7 @@ export default {
   .btn {
     position: absolute;
     right: 30%;
-    bottom: 10%;
+    top: 10%;
   }
 }
 </style>

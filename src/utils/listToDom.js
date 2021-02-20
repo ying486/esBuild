@@ -1,5 +1,4 @@
 import Vue from 'Vue';
-import { templateCode } from "./template";
 import { configList } from "../views/config";
 
 const defaultType = ["Input", "i-switch", "InputNumber", "Rate", "DatePicker", "TimePicker", "Cascader"]
@@ -15,8 +14,11 @@ export const handleData = (list) => {
     const str = _getDombySort(box, items);
     body = body + str;
   }
+  body = `<Form label-position="right" :label-width="100">
+  ${body}
+  </Form>`
   // 代码美化
-  const beautifyData = Vue.prototype.jsBeautify.html_beautify(templateCode(body), {
+  const beautifyData = Vue.prototype.jsBeautify.html_beautify(body, {
     indent_size: 2,
     space_in_empty_paren: true,
   });
