@@ -7,6 +7,7 @@
     footer-hide
     @on-visible-change="onVisiblechange"
   >
+    <div v-if="!componentList.length">暂无内容</div>
     <Form :label-width="100">
       <div v-for="(box, boxIndex) in componentList" :key="boxIndex">
         <!-- row -->

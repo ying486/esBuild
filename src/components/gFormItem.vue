@@ -4,7 +4,7 @@
       v-if="defaultType.includes(obj.type)"
       class="content"
       v-bind="obj.props"
-      :style="limitStyle.includes(obj.type) ? 'width: 216px' : ''"
+      :style="limitStyle.includes(obj.type) ? 'width: 50%' : ''"
       :is="obj.type"
       @click.native.stop="showDel && onClick(boxIndex, index)"
     >
@@ -13,7 +13,7 @@
       v-if="interType.includes(obj.type)"
       v-bind="obj.props.group"
       :is="obj.type"
-      style="width: 216px"
+      style="width: 50%"
       @click.native.stop="showDel && onClick(boxIndex, index)"
     >
       <component

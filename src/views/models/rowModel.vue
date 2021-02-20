@@ -55,7 +55,9 @@ export default {
       !show && this.$emit("close", show);
     },
     "props.col"(val) {
-      this.props.colList = val.split(":");
+      if (val) {
+        this.props.colList = val.split(":");
+      }
     },
   },
 };
