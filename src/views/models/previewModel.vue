@@ -7,7 +7,7 @@
     footer-hide
     @on-visible-change="onVisiblechange"
   >
-    <div v-if="!componentList.length">暂无内容</div>
+    <div v-if="isEmpty">暂无内容</div>
     <Form :label-width="100">
       <div v-for="(box, boxIndex) in componentList" :key="boxIndex">
         <!-- row -->
@@ -70,6 +70,17 @@ export default {
     },
   },
   methods: {
+    // 判断是否有内容
+    isEmpty() {
+      if (!this.componentList.length) {
+        return true;
+      }
+      for (let item of this.componentList) {
+        if (!item.children.length) {
+          return true;
+        }
+      }
+    },
     onVisiblechange(val) {
       this.showModel = val;
       this.$parent.showPreviewModel = val;
