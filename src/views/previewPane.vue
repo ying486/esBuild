@@ -14,7 +14,7 @@
       >
         <div class="tag-contaner">
           <div class="tag" v-if="box.name === 'Row'">
-            {{ box.name + " " + box.col }}
+            {{ `${box.name} ${box.col}` }}
           </div>
           <div class="tag" v-else>{{ box.name }}</div>
           <div class="tag" @click="onDelBox(boxIndex)">delete</div>

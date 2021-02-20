@@ -4,7 +4,7 @@
       v-if="defaultType.includes(obj.type)"
       class="content"
       v-bind="obj.props"
-      :style="limitStyle.includes(obj.type) ? 'width: 50%' : ''"
+      :style="limitStyle.includes(obj.type) ? 'width: 216px' : ''"
       :is="obj.type"
       @click.native.stop="showDel && onClick(boxIndex, index)"
     >
@@ -13,7 +13,7 @@
       v-if="interType.includes(obj.type)"
       v-bind="obj.props.group"
       :is="obj.type"
-      style="width: 50%"
+      style="width: 216px"
       @click.native.stop="showDel && onClick(boxIndex, index)"
     >
       <component
@@ -102,7 +102,7 @@ export default {
   position: relative;
   .btn {
     position: absolute;
-    right: 40%;
+    right: 30%;
     bottom: 10%;
   }
 }
