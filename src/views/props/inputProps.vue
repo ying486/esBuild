@@ -165,7 +165,7 @@
       </div>
       <!-- 属性 -->
       <!-- 样式 -->
-      <div class="block">
+      <!-- <div class="block">
         <h4 class="title">Styles</h4>
         <div v-for="(item, index) in styles" :key="index">
           <FormItem :label="item.name">
@@ -176,7 +176,7 @@
             </Select>
           </FormItem>
         </div>
-      </div>
+      </div> -->
       <!-- 样式 -->
     </Form>
   </div>
@@ -210,9 +210,9 @@ export default {
     props() {
       return this.$store.state.currentProps;
     },
-    styles() {
-      return this.$store.state.currentStyles;
-    },
+    // styles() {
+    //   return this.$store.state.currentStyles;
+    // },
   },
   methods: {},
   watch: {

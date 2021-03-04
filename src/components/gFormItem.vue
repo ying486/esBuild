@@ -6,7 +6,7 @@
       v-bind="obj.props"
       :style="limitStyle.includes(obj.type) ? 'width: 50%' : ''"
       :is="obj.type"
-      @click.native.stop="showDel && onClick(boxIndex, index)"
+      @click.native="showDel && onClick(boxIndex, index)"
     >
     </component>
     <component
@@ -14,7 +14,7 @@
       v-bind="obj.props.group"
       :is="obj.type"
       style="width: 50%"
-      @click.native.stop="showDel && onClick(boxIndex, index)"
+      @click.native="showDel && onClick(boxIndex, index)"
     >
       <component
         v-for="(item, index) in obj.props.child"
@@ -72,15 +72,6 @@ export default {
       interType: ["RadioGroup", "CheckboxGroup", "Select"],
       limitStyle: ["Input", "Cascader"],
     };
-  },
-  computed: {
-    changeStyle() {
-      let data = {};
-      for (let item of this.obj.styles) {
-        data[item.name] = item.value;
-      }
-      return data;
-    },
   },
   methods: {
     // 点击组件

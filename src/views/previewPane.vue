@@ -11,6 +11,7 @@
         <div class="tag-contaner">
           <div class="tag" v-if="box.name === 'Row'" @click="onBox(boxIndex)">
             {{ `${box.name} ${box.col}` }}
+            <Icon type="ios-create-outline" />
           </div>
           <div class="tag" v-else>{{ box.name }}</div>
           <div class="tag" @click="onDelBox(boxIndex)">delete</div>

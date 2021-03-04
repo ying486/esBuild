@@ -7,15 +7,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     componentList: [
-      {
-        col: "12:12",
-        colList: ["12", "12"],
-        name: "Row",
-        num: 1,
-        width: "100%",
-        children: [],
-        key: 123
-      },
+      // {
+      //   col: "12:12",
+      //   colList: ["12", "12"],
+      //   name: "Row",
+      //   num: 1,
+      //   width: "100%",
+      //   children: [],
+      //   key: 123
+      // },
     ],
     currentProps: {},
     currentStyles: []

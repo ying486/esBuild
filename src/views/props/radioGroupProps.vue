@@ -111,20 +111,6 @@
         /></Button>
       </div>
       <!-- 子属性 -->
-      <!-- 样式 -->
-      <div class="block">
-        <h4 class="title">Styles</h4>
-        <div v-for="(item, index) in styles" :key="index">
-          <FormItem :label="item.name">
-            <Select v-model="item.value" size="small">
-              <Option v-for="item in textAlignList" :value="item" :key="item">{{
-                item
-              }}</Option>
-            </Select>
-          </FormItem>
-        </div>
-      </div>
-      <!-- 样式 -->
     </Form>
   </div>
 </template>
@@ -143,9 +129,6 @@ export default {
   computed: {
     props() {
       return this.$store.state.currentProps;
-    },
-    styles() {
-      return this.$store.state.currentStyles;
     },
   },
   methods: {
