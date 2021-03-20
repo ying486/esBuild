@@ -1,4 +1,4 @@
-export const templateCode = (body) => {
+export const templateCode = (body, form) => {
   return `<template>
   <div class="home">
     <Form label-position="right" :label-width="100">
@@ -12,7 +12,9 @@ export default {
   name: "home",
   components: {},
   data() {
-    return {};
+    return {
+      ${form}
+    };
   },
   computed: {},
   methods: {},

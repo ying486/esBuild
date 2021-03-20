@@ -219,7 +219,7 @@ export const configList = [
   // Select
   {
     type: "Select",
-    name: "Select 多选框组",
+    name: "Select 选择器",
     childTag: "Option",
     props: {
       labelName: "Select",
@@ -257,7 +257,7 @@ export const configList = [
   // Cascader
   {
     type: "Cascader",
-    name: "Cascader 时间选择器",
+    name: "Cascader 联级选择",
     props: {
       data: cascader,
       labelName: "Cascader",

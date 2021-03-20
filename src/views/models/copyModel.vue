@@ -3,18 +3,29 @@
     class="copy-model"
     v-model="showModel"
     width="60%"
-    title="表单代码"
-    ok-text="复制"
-    @on-ok="onOk"
+    title="表单代码（双击文本框复制到粘贴板）"
     @on-visible-change="onVisiblechange"
   >
-    <Input
-      id="code"
-      :value="code"
-      type="textarea"
-      :autosize="{ minRows: 2, maxRows: 16 }"
-      readonly
-    ></Input>
+    <div class="textarea-container">
+      <div class="html" @dblclick="onCodeBox">
+        <Input
+          id="code"
+          :value="code.htmlCode"
+          type="textarea"
+          :autosize="{ minRows: 2, maxRows: 16 }"
+          readonly
+        ></Input>
+      </div>
+      <div class="form" @dblclick="onformBox">
+        <Input
+          id="form"
+          :value="code.formCode"
+          type="textarea"
+          :autosize="{ minRows: 2, maxRows: 16 }"
+          readonly
+        ></Input>
+      </div>
+    </div>
     <!-- <textarea id="code" cols="30" rows="10" :value="code"></textarea> -->
   </Modal>
 </template>
@@ -28,8 +39,10 @@ export default {
       default: false,
     },
     code: {
-      String,
-      default: "",
+      Object,
+      default: () => {
+        return {};
+      },
     },
   },
   data() {
@@ -39,9 +52,17 @@ export default {
   },
   methods: {
     // 复制到剪贴板
-    onOk() {
+    onCodeBox() {
       var aux = document
         .getElementById("code")
+        .getElementsByTagName("textarea")[0];
+      aux.select();
+      document.execCommand("copy");
+      this.$Message.success("复制成功");
+    },
+    onformBox() {
+      var aux = document
+        .getElementById("form")
         .getElementsByTagName("textarea")[0];
       aux.select();
       document.execCommand("copy");
@@ -65,5 +86,17 @@ export default {
 
 <style lang="less" >
 .copy-model {
+  .textarea-container {
+    display: flex;
+    flex-direction: row;
+    .html {
+      width: 70%;
+      padding: 5px;
+    }
+    .form {
+      width: 30%;
+      padding: 5px;
+    }
+  }
 }
 </style>

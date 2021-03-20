@@ -3,7 +3,7 @@
     class="row-model"
     v-model="showModel"
     title="栅格比例"
-    width="350px"
+    width="400px"
     footer-hide
     @on-visible-change="onVisiblechange"
   >
@@ -12,6 +12,7 @@
       <Radio label="12:12"></Radio>
       <Radio label="8:8:8"></Radio>
       <Radio label="6:6:6:6"></Radio>
+      <Radio label="8:16"></Radio>
       <Radio label="16:8"></Radio>
     </RadioGroup>
   </Modal>

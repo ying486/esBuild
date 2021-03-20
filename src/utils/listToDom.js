@@ -2,6 +2,7 @@ import Vue from 'Vue';
 import { configList } from "../views/config";
 
 const defaultType = ["Input", "i-switch", "InputNumber", "Rate", "DatePicker", "TimePicker", "Cascader"]
+let form = ""
 
 // 处理数据
 export const handleData = (list) => {
@@ -18,11 +19,15 @@ export const handleData = (list) => {
   ${body}
   </Form>`
   // 代码美化
-  const beautifyData = Vue.prototype.jsBeautify.html_beautify(body, {
+  const htmlCode = Vue.prototype.jsBeautify.html_beautify(body, {
     indent_size: 2,
     space_in_empty_paren: true,
   });
-  return beautifyData;
+  const formCode = Vue.prototype.jsBeautify.js_beautify(form, {
+    indent_size: 2,
+    space_in_empty_paren: true,
+  });
+  return { htmlCode, formCode };
 }
 
 // 根据排序类型生成不同Dom
@@ -119,6 +124,10 @@ function _getPropsSec(initVal, newVal) {
 
 // 将键值对转化为Dom中的属性
 function _getDomPropStr(propName, obj) {
+  if (propName === "v-model") {
+    form = form + `${obj[propName]}:""` // 将所有v-model存入form
+    return `${propName}="form.${obj[propName]}"`
+  }
   let type = typeof obj[propName]
   switch (type) {
     case 'string':

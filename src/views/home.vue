@@ -46,7 +46,7 @@
       <props-pane></props-pane>
     </div>
     <preview-model v-model="showPreviewModel"></preview-model>
-    <copy-model v-model="showCopyModel" :code="formCode"></copy-model>
+    <copy-model v-model="showCopyModel" :code="codeObj"></copy-model>
   </div>
 </template>
 
@@ -75,7 +75,7 @@ export default {
       showPreviewModel: false,
       showCopyModel: false,
       PreviewPane: PreviewPane,
-      formCode: "",
+      codeObj: "",
     };
   },
   computed: {
@@ -100,22 +100,14 @@ export default {
     },
     // 复制
     onCopy() {
-      this.formCode = handleData(this.componentList);
+      this.codeObj = handleData(this.componentList);
       this.showCopyModel = true;
     },
     // 下载
     onDownload() {
-      const data = handleData(this.componentList);
-      // 代码美化
-      // const beautifyData = Vue.prototype.jsBeautify.html_beautify(
-      //   templateCode(data), // 插入模板
-      //   {
-      //     indent_size: 2,
-      //     space_in_empty_paren: true,
-      //   }
-      // );
+      const obj = handleData(this.componentList);
       // 定义文件内容，类型必须为Blob 否则createObjectURL会报错
-      let content = new Blob([templateCode(data)]);
+      let content = new Blob([templateCode(obj.htmlCode, obj.formCode)]);
       // 生成url对象
       let urlObject = window.URL || window.webkitURL || window;
       let url = urlObject.createObjectURL(content);

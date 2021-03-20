@@ -29,11 +29,10 @@ export default new Vuex.Store({
         key,
         children: []
       })
-      console.log(state.componentList, "com");
     },
     // 添加组件
     add(state, data) {
-      console.log(state, "stte");
+      console.log(state.componentList, "stte");
       const index = data.index;
       const boxIndex = data.boxIndex;
       const key = (new Date()).getTime()
@@ -45,6 +44,7 @@ export default new Vuex.Store({
     // 移动
     move(state, list) {
       state.componentList = JSON.parse(JSON.stringify(list))
+      // state.componentList = list
     },
     // 选择盒子
     selectBox(state, index) {
