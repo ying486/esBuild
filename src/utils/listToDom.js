@@ -6,6 +6,7 @@ let form = ""
 
 // 处理数据
 export const handleData = (list) => {
+  form = "" // 重置form
   let body = "";
   for (let box of list) {
     let items = [];
@@ -23,6 +24,7 @@ export const handleData = (list) => {
     indent_size: 2,
     space_in_empty_paren: true,
   });
+  form = "{" + form + "}"
   const formCode = Vue.prototype.jsBeautify.js_beautify(form, {
     indent_size: 2,
     space_in_empty_paren: true,
@@ -125,7 +127,7 @@ function _getPropsSec(initVal, newVal) {
 // 将键值对转化为Dom中的属性
 function _getDomPropStr(propName, obj) {
   if (propName === "v-model") {
-    form = form + `${obj[propName]}:""` // 将所有v-model存入form
+    form = form + `${obj[propName]}:"",` // 将所有v-model存入form
     return `${propName}="form.${obj[propName]}"`
   }
   let type = typeof obj[propName]

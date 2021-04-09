@@ -20,10 +20,9 @@
         <draggable
           v-if="box.name === 'Row'"
           v-model="box.children"
-          group="site"
+          v-bind="rowContainerOpts(box)"
           animation="500"
-          :style="boxStyle"
-          :disabled="isDisabled(box)"
+          :style="rowBoxStyle"
           @add="onAdd(boxIndex, $event)"
         >
           <Col
@@ -48,7 +47,7 @@
           v-model="box.children"
           group="site"
           animation="500"
-          :style="boxStyle"
+          :style="columnBoxStyle"
           @add="onAdd(boxIndex, $event)"
         >
           <FormItem
@@ -91,9 +90,18 @@ export default {
         "flex-direction": "column",
         padding: "0 5px",
       },
-      boxStyle: {
+      rowBoxStyle: {
         width: "100%",
-        "min-height": "100px",
+        "min-height": "80px",
+        border: "2px solid #e0e0e0",
+        "border-radius": "0 0 5px 5px",
+        display: "flex",
+        "flex-direction": "row",
+        "align-items": "center",
+      },
+      columnBoxStyle: {
+        width: "100%",
+        "min-height": "80px",
         border: "2px solid #e0e0e0",
         "border-radius": "0 0 5px 5px",
       },
@@ -131,12 +139,15 @@ export default {
       this.showRowModel = false;
     },
     // 当超过数量时不可再拖拽添加
-    isDisabled(box) {
+    canPut(box) {
       const colList = box.col.split(":");
-      if (box.children.length >= colList.length) {
+      if (box.children.length < colList.length) {
         return true;
       }
       return false;
+    },
+    rowContainerOpts(box) {
+      return { group: { name: "site", put: this.canPut(box) } };
     },
   },
 };

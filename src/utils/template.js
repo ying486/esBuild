@@ -1,9 +1,7 @@
 export const templateCode = (body, form) => {
   return `<template>
   <div class="home">
-    <Form label-position="right" :label-width="100">
-      ${body}
-    </Form>
+    ${body}
   </div>
 </template>
 
@@ -13,9 +11,7 @@ export default {
   components: {},
   data() {
     return {
-      form{
-        ${form}
-      }
+      form:${form} 
     };
   },
   computed: {},
